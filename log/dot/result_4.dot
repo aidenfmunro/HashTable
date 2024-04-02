@@ -1,0 +1,18 @@
+  digraph
+  {
+  rankdir = LR;
+  node [shape = record, color = "#fffdd0", fontname = helvetica, fontsize = 10];
+  bgcolor = "#ffffff";
+  ROOT[style = "filled", fillcolor = "#ff0000",   label = "ROOT|{<head>head = 3|<tail>tail = 4}"];
+  FREE_HEAD[style = "filled", fillcolor = "#b9e793",   label = "FREE_HEAD|<free>free = 5"];
+  NODE_1[style = "filled", fillcolor = "#fffdd0",   label = "index = 1|value\n30|{prev = 2|next = 4}"];
+  NODE_2[style = "filled", fillcolor = "#fffdd0",   label = "index = 2|value\n20|{prev = 3|next = 1}"];
+  NODE_3[style = "filled", fillcolor = "#fffdd0",   label = "index = 3|value\n15|{prev = 0|next = 2}"];
+  NODE_4[style = "filled", fillcolor = "#fffdd0",   label = "index = 4|value\n12|{prev = 1|next = 0}"];
+  NODE_5[style = "filled", fillcolor = "#fffdd0",   label = "index = 5|value\n-1|{prev = 18446744073709551615|next = 6}"];
+  NODE_6[style = "filled", fillcolor = "#fffdd0",   label = "index = 6|value\n-1|{prev = 18446744073709551615|next = 7}"];
+  NODE_7[style = "filled", fillcolor = "#fffdd0",   label = "index = 7|value\n-1|{prev = 18446744073709551615|next = 0}"];
+ROOT->NODE_1->NODE_2->NODE_3->NODE_4->NODE_5->NODE_6->NODE_7 [weight = 100000, color = "#ffffff"];
+ROOT:head->NODE_3->NODE_2->NODE_1->NODE_4->ROOT:tail;
+FREE_HEAD:free->NODE_5;
+  }
