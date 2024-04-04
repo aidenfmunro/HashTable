@@ -39,7 +39,7 @@ ErrorCode DumpListGraph(List* list)
     {
         dumpGraph(graphFile,
                             "  NODE_%zu[style = \"filled\", fillcolor = " NODE_COLOR ", "
-                            "  label = \"index = %lu|value\\n%d|{prev = %lu|next = %lu}\"];\n",
+                            "  label = \"index = %lu|value\\n%s|{prev = %lu|next = %lu}\"];\n",
                             i, i, VALUE(i), PREV(i), NEXT(i)
         );
     }

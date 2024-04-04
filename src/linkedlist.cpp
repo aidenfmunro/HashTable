@@ -106,7 +106,7 @@ ErrorCode PushBack(List* list, Elem_t value) // TODO: return physical address
     
 Elem_t Remove(List* list, size_t index)
 {
-    AssertSoft(index < list->size, INDEX_OUT_OF_RANGE);
+    AssertSoft(index < list->size, "INDEX OUT OF RANGE");
 
     Elem_t value   = VALUE(index);
     size_t delPrev = PREV(index);

@@ -6,14 +6,19 @@ int main(void)
     List list = {};
     
     CreateList(&list);
+
+    char* str1 = "hello";
+    char* str2 = "world";
+    char* str3 = "great";
+    char* str4 = "place";
     
-    PushBack(&list, 30);
+    PushBack(&list, str1);
     DumpListGraph(&list);
-    PushBack(&list, 20);
+    PushBack(&list, str2);
     DumpListGraph(&list);
-    PushBack(&list, 15);
+    PushBack(&list, str3);
     DumpListGraph(&list);
-    PushBack(&list, 12);
+    PushBack(&list, str4);
     DumpListGraph(&list);
     PrintList(&list);
     DumpListGraph(&list);
