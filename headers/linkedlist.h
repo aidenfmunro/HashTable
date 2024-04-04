@@ -55,10 +55,6 @@ ErrorCode reallocList(List* list);
 
 Elem_t    Remove(List* list, size_t index);
 
-ErrorCode PrintList(List* list);
-
-ErrorCode DumpListGraph(List* list);
-
 ErrorCode listVerify(List* list);
 
 #endif

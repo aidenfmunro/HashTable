@@ -1,4 +1,5 @@
 #include "linkedlist.h"
+#include "listdump.h"
 
 int main(void)
 {
@@ -6,11 +7,11 @@ int main(void)
     
     CreateList(&list);
     
-    PushFront(&list, 30);
+    PushBack(&list, 30);
     DumpListGraph(&list);
-    PushFront(&list, 20);
+    PushBack(&list, 20);
     DumpListGraph(&list);
-    PushFront(&list, 15);
+    PushBack(&list, 15);
     DumpListGraph(&list);
     PushBack(&list, 12);
     DumpListGraph(&list);
