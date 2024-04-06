@@ -13,7 +13,8 @@ enum ERRORS
     UNABLE_TO_OPEN_FILE,
     NULL_PTR,
     LIST_OVERFLOW,
-    FREEHEAD_FUCKED_UP
+    FREEHEAD_FUCKED_UP,
+    NONE_EXISTING
 };
 
 #define CheckPointerValidation(pointer)     \

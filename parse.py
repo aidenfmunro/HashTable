@@ -13,5 +13,5 @@ with open(sys.argv[1], 'r') as inputFile:
             outputText = ''.join(sym for sym in inputText if sym.isalpha() or sym == ' ').lower().split()
 
             for word in outputText:
-                print(f'{word}\0;{len(word)}')
+                print(f'{word}\0;{len(word)}\0')
     
