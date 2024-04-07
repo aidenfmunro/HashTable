@@ -16,7 +16,7 @@ uint64_t firstLetterHash (const void* memory, size_t htSize)
 
 uint64_t wordLengthHash (const void* memory, size_t htSize)
 {
-    uint64_t hash = atol((char*) memory); 
+    uint64_t hash = *(size_t*) memory;
 
     return hash % htSize;
 }
@@ -33,7 +33,7 @@ uint64_t letterSumHash (const void* memory, size_t htSize)
     {
         hash += curSym;
 
-        iterator += 1; 
+        iterator++; 
     }
 
     return hash;

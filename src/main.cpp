@@ -7,19 +7,16 @@
 int main(void)
 {
     HashTable ht = {};
-    size_t bucketsQuantity = 64;
+    size_t bucketsQuantity = 4096;
 
-    CreateHashTable(&ht, bucketsQuantity, firstLetterHash);
+    CreateHashTable(&ht, bucketsQuantity, wordLengthHash);
 
     Text text = {};
     CreateText(&text, "result.txt");
 
     for (int i = 0; i < text.numLines; i++)
     {
-        printf("%s %d\n", text.lineptrs[i], ht.hashFunction(text.lineptrs[i], ht.size));
-
-
-        // PushBack(&ht.lists[ht.hashFunction(text.lineptrs[i], ht.size)], text.lineptrs[i]); 
+        PushBack(&ht.lists[ht.hashFunction(&text.lines[i].length, ht.size)], text.lines[i].string); 
     }
 
     FILE* fp = fopen("hashres.txt", "w");

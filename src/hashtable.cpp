@@ -8,9 +8,14 @@ ErrorCode CreateHashTable (HashTable* ht, size_t bucketsQuantity, hashFunction_t
 
     SafeCalloc(temp, List, bucketsQuantity, NO_MEMORY_AVAILABLE);
 
+    ht->size = bucketsQuantity;
+
     ht->lists = temp;
 
-    ht->size = bucketsQuantity;
+    for (int i = 0; i < bucketsQuantity; i++)
+    {
+        CreateList(&ht->lists[i]);
+    }
 
     ht->hashFunction = hashFunction;
 
@@ -20,6 +25,11 @@ ErrorCode CreateHashTable (HashTable* ht, size_t bucketsQuantity, hashFunction_t
 ErrorCode DestroyHashTable (HashTable* ht)
 {
     AssertSoft(ht, NONE_EXISTING);
+
+    for (int i = 0; i < ht->size; i++)
+    {
+        DestroyList(&ht->lists[i]);
+    }
 
     free(ht->lists);
 

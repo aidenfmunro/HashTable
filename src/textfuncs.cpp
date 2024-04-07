@@ -17,6 +17,7 @@ ErrorCode CreateText(Text* text, const char* filename)
     text->buffer   = parseBuf(text, filename);
     text->numLines = countLines(text);
     text->lineptrs = getLinePointers(text);
+    text->lines    = getLines(text);
 
     return OK;
 }
@@ -27,6 +28,7 @@ ErrorCode DestroyText(Text* text)
 
     free((void*)text->lineptrs);
     free((void*)text->buffer);
+    free((void*)text->lines);
 
     return OK;
 }
@@ -90,5 +92,27 @@ size_t countLines(const Text* text)
         if (text->buffer[i] == '\n')
             lines++;
 
+    return lines;
+}
+
+char* getLine(Text* text, size_t numLine)
+{
+    AssertSoft(numLine < text->numLines, NULL);
+
+    return text->lines[numLine].string;
+}
+
+Line* getLines(Text* text)
+{
+    AssertSoft(text, NULL);
+
+    Line* lines = (struct Line*)calloc(text->numLines, sizeof(Line));
+
+    for (size_t i = 0; i < text->numLines; i++)
+    {
+        lines[i].length = strlen(text->lineptrs[i]);
+        lines[i].string = text->lineptrs[i];
+    }
+    
     return lines;
 }

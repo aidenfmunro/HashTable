@@ -9,10 +9,21 @@
 
 /**
  * 
- * Text structure that contains line pointers, buffer, size & amount of lines.
+ * Line structure that contains a string and the length of the string.
  * 
  */
 
+struct Line
+{
+    char* string;
+    size_t length;
+};
+
+/**
+ * 
+ * Text structure that contains line pointers, buffer, size & amount of lines.
+ * 
+ */
 
 struct Text 
 {
@@ -20,7 +31,24 @@ struct Text
     char* const* lineptrs;
     size_t size,
            numLines;
+
+    Line* lines;
 };
+
+char* getLine(Text* text, size_t numLine);
+
+/**
+ * 
+ * \brief Gets lots of line structures.
+ * 
+ * @param[in] text - text structure.
+ * @param[out] struct Line.   
+ * 
+ * \return string.
+ * 
+ */
+
+struct Line* getLines(Text* text);
 
 /**
  * 
