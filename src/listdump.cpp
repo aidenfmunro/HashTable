@@ -1,6 +1,6 @@
-#include "dsl.h"
-#include "graphparams.h"
-#include "listdump.h"
+#include "dsl.hpp"
+#include "graphparams.hpp"
+#include "listdump.hpp"
 
 ErrorCode DumpListHTML(List* list)
 {

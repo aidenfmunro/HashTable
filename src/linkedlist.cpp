@@ -1,8 +1,8 @@
-#include "dsl.h"
+#include "dsl.hpp"
 
-#include "graphparams.h"
+#include "graphparams.hpp"
 
-#include "linkedlist.h"
+#include "linkedlist.hpp"
 
 // TD: linearization
 
