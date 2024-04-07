@@ -15,7 +15,7 @@ const Elem_t POISON = "POISON";
 
 const int DEFAULT_LIST_CAPACITY = 8;
 
-const int MAX_LIST_CAPACITY = 1024;
+const size_t MAX_LIST_CAPACITY = __SIZE_MAX__; // TODO: this is changed be careful!!!
 
 const size_t FREE_HEAD = -1;
 
