@@ -21,9 +21,12 @@ int main(void)
 
     FILE* fp = fopen("hashres.txt", "w");
 
-    for (int j = 0; j < ht.size; j++)
+    for (int i = 0; i < ht.size; i++)
     {
-        fprintf(fp, "%d\n", ht.lists[j].size);
+        for (int j = 0; j < ht.lists[i].size; j++)
+        {
+            fprintf(fp, "%d\n", i);
+        }
     }
 
     DestroyText(&text);
