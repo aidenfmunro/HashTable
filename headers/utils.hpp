@@ -14,7 +14,9 @@ enum ERRORS
     NULL_PTR,
     LIST_OVERFLOW,
     FREEHEAD_FUCKED_UP,
-    NONE_EXISTING
+    NONE_EXISTING,
+    FOUND,
+    NOT_FOUND
 };
 
 #define CheckPointerValidation(pointer)     \

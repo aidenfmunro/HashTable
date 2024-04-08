@@ -93,7 +93,7 @@ ErrorCode PrintList(List* list)
 
     for (size_t i = 0; i < list->capacity; i++)
     {
-        printf("[%lu] -> value: %d, next: %lu, prev %lu\n", i, VALUE(i), NEXT(i), PREV(i));
+        printf("[%lu] -> value: %s, next: %lu, prev %lu\n", i, VALUE(i), NEXT(i), PREV(i));
     }
 
     printf("\nin order:\n");
@@ -102,7 +102,7 @@ ErrorCode PrintList(List* list)
 
     for (size_t i = 0; i < list->size; i++)
     {
-        printf("[%lu] -> value: %d, next: %lu, prev %lu\n", curIndex, VALUE(curIndex), NEXT(curIndex), PREV(curIndex));
+        printf("[%lu] -> value: %s, next: %lu, prev %lu\n", curIndex, VALUE(curIndex), NEXT(curIndex), PREV(curIndex));
 
         curIndex = NEXT(curIndex);
     }

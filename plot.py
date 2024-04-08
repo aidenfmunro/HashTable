@@ -15,7 +15,7 @@ bins = np.unique(data)
 
 plt.hist(data, bins = bins, color = 'skyblue', edgecolor = 'black')
 
-plt.xscale('log')
+# plt.xscale('log')
 
 plt.xlabel("collision count per bucket")
 

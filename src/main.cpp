@@ -7,29 +7,24 @@
 int main(void)
 {
     HashTable ht = {};
-    size_t bucketsQuantity = 4096;
+    size_t bucketsQuantity = 1009;
 
-    CreateHashTable(&ht, bucketsQuantity, wordLengthHash);
+    CreateHashTable(&ht, bucketsQuantity, firstLetterHash);
 
     Text text = {};
     CreateText(&text, "result.txt");
 
-    for (int i = 0; i < text.numLines; i++)
-    {
-        uint64_t listIndex = ht.hashFunction(&text.lines[i].length, ht.size);
+    // fillWithWordLengthHash(&ht, &text);
 
-        findElement(&ht, listIndex, text.lines[i].string); 
-    }
+    // fillWithLetterSumHash(&ht, &text);
 
-    FILE* fp = fopen("hashres.txt", "w");
+    fillWithFirstLetterHash(&ht, &text);
 
-    for (int i = 0; i < ht.size; i++)
-    {
-        for (int j = 0; j < ht.lists[i].size; j++)
-        {
-            fprintf(fp, "%d\n", i - 1);
-        }
-    }
+    fillHashData(&ht, "hashres.txt");
+
+    printf("list size: %llu\n", ht.lists[0].size);
+
+    PrintList(&ht.lists[0]);
 
     DestroyText(&text);
     DestroyHashTable(&ht);

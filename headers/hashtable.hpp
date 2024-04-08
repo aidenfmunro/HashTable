@@ -10,7 +10,7 @@
 #include "textfuncs.hpp"
 #include "utils.hpp"
 
-typedef uint64_t (*hashFunction_t)(const void* memory, size_t size); 
+typedef uint64_t (*hashFunction_t)(const void* seed, size_t size); 
 
 struct HashTable
 {
@@ -21,11 +21,21 @@ struct HashTable
     size_t size;
 };
 
-ErrorCode CreateHashTable (HashTable* ht, size_t bucketsQuantity, hashFunction_t hashFunction);
+ErrorCode CreateHashTable         (HashTable* ht, size_t bucketsQuantity, hashFunction_t hashFunction);
+       
+ErrorCode DestroyHashTable        (HashTable* ht);
+       
+ErrorCode findElement             (HashTable* ht, size_t listIndex, Elem_t elem);
+       
+ErrorCode fillWithZeroHash        (HashTable* ht, Text* text);
 
-ErrorCode DestroyHashTable (HashTable* ht);
+ErrorCode fillWithWordLengthHash  (HashTable* ht, Text* text);
 
-ErrorCode findElement(HashTable* ht, size_t listIndex, Elem_t elem);
+ErrorCode fillWithFirstLetterHash (HashTable* ht, Text* text);
+
+ErrorCode fillWithLetterSumHash   (HashTable* ht, Text* text);
+
+ErrorCode fillHashData            (HashTable* ht, const char* outputFileName);
 
 
 #endif
