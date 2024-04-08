@@ -131,12 +131,37 @@ ErrorCode fillWithLetterSumHash (HashTable* ht, Text* text)
     return OK;
 }
 
-ErrorCode fillHashData (HashTable* ht, const char* outputFileName)
+ErrorCode fillWithLetterSumDivLenHash (HashTable* ht, Text* text)
+{
+    AssertSoft(ht, NULL_PTR);
+    AssertSoft(text, NULL_PTR);
+
+    for (int i = 0; i < text->numLines; i++)
+
+    uint64_t listIndex = ht->hashFunction(text->lines[i].string, ht->size);
+
+     for (int i = 0; i < text->numLines; i++)
+    {
+        uint64_t listIndex = ht->hashFunction(text->lines[i].string, ht->size); // fix this
+
+        if (findElement(ht, listIndex, text->lines[i].string) == NOT_FOUND)
+        {
+            PushBack(&ht->lists[listIndex], text->lines[i].string);
+        } 
+    }
+
+    return OK;
+}
+
+ErrorCode fillHashData (HashTable* ht, const char* outputFileName, const char* hashName)
 {
     AssertSoft(ht, NULL_PTR);
     AssertSoft(outputFileName, NULL_PTR);
+    AssertSoft(hashName, NULL_PTR);
 
     myOpen(outputFileName, "w", outputFile);
+
+    fprintf(outputFile, "%s\n", hashName);
 
     for (int i = 0; i < ht->size; i++)
     {

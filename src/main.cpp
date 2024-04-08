@@ -7,20 +7,16 @@
 int main(void)
 {
     HashTable ht = {};
-    size_t bucketsQuantity = 1009;
+    size_t bucketsQuantity = 879490 / 5;
 
-    CreateHashTable(&ht, bucketsQuantity, firstLetterHash);
+    CreateHashTable(&ht, bucketsQuantity, letterSumDivLenHash);
 
     Text text = {};
     CreateText(&text, "result.txt");
 
-    // fillWithWordLengthHash(&ht, &text);
+    fillWithLetterSumDivLenHash(&ht, &text);
 
-    // fillWithLetterSumHash(&ht, &text);
-
-    fillWithFirstLetterHash(&ht, &text);
-
-    fillHashData(&ht, "hashres.txt");
+    fillHashData(&ht, "hashres.txt", "ASCII sum hash (Load factor = 5)");
 
     printf("list size: %llu\n", ht.lists[0].size);
 

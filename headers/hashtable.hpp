@@ -21,21 +21,23 @@ struct HashTable
     size_t size;
 };
 
-ErrorCode CreateHashTable         (HashTable* ht, size_t bucketsQuantity, hashFunction_t hashFunction);
-       
-ErrorCode DestroyHashTable        (HashTable* ht);
-       
-ErrorCode findElement             (HashTable* ht, size_t listIndex, Elem_t elem);
-       
-ErrorCode fillWithZeroHash        (HashTable* ht, Text* text);
+ErrorCode CreateHashTable             (HashTable* ht, size_t bucketsQuantity, hashFunction_t hashFunction);
+           
+ErrorCode DestroyHashTable            (HashTable* ht);
+           
+ErrorCode findElement                 (HashTable* ht, size_t listIndex, Elem_t elem);
+           
+ErrorCode fillWithZeroHash            (HashTable* ht, Text* text);
+    
+ErrorCode fillWithWordLengthHash      (HashTable* ht, Text* text);
+    
+ErrorCode fillWithFirstLetterHash     (HashTable* ht, Text* text);
+    
+ErrorCode fillWithLetterSumHash       (HashTable* ht, Text* text);
 
-ErrorCode fillWithWordLengthHash  (HashTable* ht, Text* text);
+ErrorCode fillWithLetterSumDivLenHash (HashTable* ht, Text* text);
 
-ErrorCode fillWithFirstLetterHash (HashTable* ht, Text* text);
-
-ErrorCode fillWithLetterSumHash   (HashTable* ht, Text* text);
-
-ErrorCode fillHashData            (HashTable* ht, const char* outputFileName);
+ErrorCode fillHashData                (HashTable* ht, const char* outputFileName, const char* hashName);
 
 
 #endif

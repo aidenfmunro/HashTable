@@ -37,3 +37,22 @@ uint64_t letterSumHash (const void* seed, size_t htSize)
     return hash % htSize;
 }
 
+uint64_t letterSumDivLenHash (const void* seed, size_t htSize)
+{
+    uint64_t hash = 0;
+
+    char* key = (char*) seed;
+    uint64_t length = 0;
+
+
+    while (*key != '\0')
+    {
+        hash += *key;
+
+        key++;
+        length++;
+    }
+
+    return (uint64_t)( (double) hash / (double) length) % htSize;
+}
+
