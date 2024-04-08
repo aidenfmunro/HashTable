@@ -16,7 +16,9 @@ int main(void)
 
     for (int i = 0; i < text.numLines; i++)
     {
-        PushBack(&ht.lists[ht.hashFunction(&text.lines[i].length, ht.size)], text.lines[i].string); 
+        uint64_t listIndex = ht.hashFunction(&text.lines[i].length, ht.size);
+
+        findElement(&ht, listIndex, text.lines[i].string); 
     }
 
     FILE* fp = fopen("hashres.txt", "w");
@@ -25,7 +27,7 @@ int main(void)
     {
         for (int j = 0; j < ht.lists[i].size; j++)
         {
-            fprintf(fp, "%d\n", i);
+            fprintf(fp, "%d\n", i - 1);
         }
     }
 

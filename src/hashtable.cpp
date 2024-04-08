@@ -39,3 +39,33 @@ ErrorCode DestroyHashTable (HashTable* ht)
 
     return OK;
 }
+
+ErrorCode findElement (HashTable* ht, size_t listIndex, Elem_t elem)
+{
+    AssertSoft(ht, NULL_PTR);
+    AssertSoft(elem, NULL_PTR);
+    AssertSoft(listIndex < ht->size, INDEX_OUT_OF_RANGE);
+
+    for (int elemIndex = 0; elemIndex < ht->lists[listIndex].size; elemIndex++)
+    {
+        if (! strcmp(elem, ht->lists[listIndex].ptr[elemIndex].value))
+        {
+            ht->lists[listIndex].ptr[elemIndex].count += 1;
+
+            return OK;
+        }
+    }
+
+    PushBack(&ht->lists[listIndex], elem);
+
+    return OK;
+}
+
+ErrorCode fillHashTable (HashTable* ht, const char* inputFile)
+{
+    AssertSoft(ht, NULL_PTR);
+    AssertSoft(inputFile, NULL_PTR);
+
+    Text text = {};
+    CreateText(&text, inputFile);
+}

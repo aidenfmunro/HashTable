@@ -25,6 +25,8 @@ struct ListElem_t
 
     size_t next;
     size_t prev;
+
+    size_t count = 0;
 };
 
 struct List
