@@ -16,7 +16,14 @@ ErrorCode CreateText(Text* text, const char* filename)
     text->size     = getSize(filename);
     text->buffer   = parseBuf(text, filename);
     text->numLines = countLines(text);
+
     text->lineptrs = getLinePointers(text);
+
+    text->alignedBuffer   = parseAlignedBuffer(text);
+
+    free((void*)text->buffer);
+    free((void*)text->lineptrs);
+
     text->lines    = getLines(text);
 
     return OK;
@@ -26,11 +33,24 @@ ErrorCode DestroyText(Text* text)
 {
     AssertSoft(text, NULL_PTR);
 
-    free((void*)text->lineptrs);
-    free((void*)text->buffer);
+    free((void*)text->alignedBuffer);
     free((void*)text->lines);
 
     return OK;
+}
+
+const int AVX_ALIGN_BYTES = 32; 
+
+char* parseAlignedBuffer(Text* text)
+{
+    SafeCalloc(alignedBuffer, char, text->numLines * AVX_ALIGN_BYTES, NULL);
+
+    for (int wordIndex = 0; wordIndex < text->numLines; wordIndex++)
+    {
+        strcpy(&alignedBuffer[wordIndex * AVX_ALIGN_BYTES], text->lineptrs[wordIndex]);
+    }
+
+    return alignedBuffer;
 }
 
 char* const* getLinePointers(Text *text)
@@ -110,8 +130,8 @@ Line* getLines(Text* text)
 
     for (size_t i = 0; i < text->numLines; i++)
     {
-        lines[i].length = strlen(text->lineptrs[i]);
-        lines[i].string = text->lineptrs[i];
+        lines[i].length = strlen(&text->alignedBuffer[i * AVX_ALIGN_BYTES]);
+        lines[i].string = &text->alignedBuffer[i * AVX_ALIGN_BYTES];
     }
     
     return lines;

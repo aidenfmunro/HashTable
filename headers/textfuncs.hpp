@@ -28,6 +28,7 @@ struct Line
 struct Text 
 {
     char*  buffer;
+    char*  alignedBuffer;
     char* const* lineptrs;
     size_t size,
            numLines;
@@ -84,6 +85,16 @@ ErrorCode DestroyText(Text* text);
  * \return size of file.
  * 
  */
+
+/**
+ * 
+ * \brief Parse aligned string for AVX instructions
+ * 
+ * 
+ * 
+ */ 
+
+char* parseAlignedBuffer(Text* text);
 
 size_t getSize(const char* filename);
 

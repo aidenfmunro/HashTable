@@ -24,7 +24,7 @@ int main(void)
 
     printf("summed up size of list %d, load factor %d\n", sumSizeOfLists, sumSizeOfLists / ht.size);
 
-    fillHashData(&ht, "hashres.txt", "ASCII sum hash (101 buckets)");
+    fillHashData(&ht, "hashres.txt", "test");
 
     DestroyText(&text);
     DestroyHashTable(&ht);
