@@ -125,6 +125,12 @@ uint64_t rotateRightHash (const char* str, int length)
 
 Max. amount of collisions: $\approx$ **75 words**
 
+Let's compare ROR hash in Godbolt using x86-64 gcc 13.2 compiler with -O0 and -02 optimizations.
+
+![](screenshots/rorcmpgodbolt.png)
+
+We can see that with the -O2 flag the compiler recognizes and replaces the body with the rorx instruction. You can check out more about the x86 rorx instruction [here](https://www.felixcloutier.com/x86/rorx).
+
 ### ROL hash
 
 Same as ROR, but the shifts are inversed.
@@ -157,6 +163,7 @@ uint64_t FNVHash (const char* str, int length)
 
     return hash;
 }
+
 ```
 
 ![](histograms/FNV%20hash.png)
