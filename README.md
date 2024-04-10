@@ -125,7 +125,7 @@ uint64_t rotateRightHash (const char* str, int length)
 
 Max. amount of collisions: $\approx$ **75 words**
 
-Let's compare ROR hash in Godbolt using x86-64 gcc 13.2 compiler with -O0 and -02 optimizations.
+Let's compare ROR hash in Godbolt using x86-64 gcc 13.2 compiler with -O0 and -O2 optimizations.
 
 ![](screenshots/rorcmpgodbolt.png)
 
