@@ -25,8 +25,8 @@ Let's firstly mark down all of the hash functions:
 1. Zero hash
 2. First letter ASCII hash
 3. Word length hash
-4. ASCII sum hash
-5. ASCII sum divided by length hash
+4. ASCII sum divided by length hash
+5. ASCII sum hash
 6. ROR hash
 7. ROL hash
 8. PNV hash
@@ -55,7 +55,62 @@ Max. amount of collisions: $\approx$ **3500 words**
 
 ### Word length hash
 
-The situation here is quite similair. 
+The situation here is quite similair. I've quickly made a python script to find out the longest word in the text. 
+The word is honorificabilitudinitatibus and it's 27 symbols long.
 
 ![](histograms/String%20length%20hash.png)
+
+A better look in log scale:
+
+![](histograms/String%20length%20hash%20(log).png)
+
+Most of the words are less than 20 symbols long, that means that this hash is worse than the previous one.
+
+Max. amount of collisions: $\approx$ **5000 words**
+
+### ASCII sum divided by length hash
+
+My thoughts are thah the division here is unnecessary. Because the ASCII sum hash has a decent distribution.
+
+![](histograms/ASCII%20sum%20divided%20by%20length%20hash.png)
+
+Max. amount of collisions: $\approx$ **5000 words**
+
+### ASCII sum hash
+
+From previous histograms I can conclude that the avarage length is 10. We can use this result to explain the growth of the peaks: ASCII values are around 100 and the avarage length is 10, 10 * 100 = 1000.   
+
+![](histograms/ASCII%20sum%20hash.png)
+
+Max. amount of collisions: $\approx$ **140 words**
+
+Let's compare 2 ASCII sum hashes:
+
+1. Hash Table Size = 101 (Prime number)
+
+2. Load factor = 5
+
+**1)**
+
+![](histograms/ASCII%20sum%20hash%20(101%20buckets).png)
+
+**2)**
+
+![](histograms/ASCII%20sum%20hash%20(Load%20factor%20=%205).png)
+
+Some theory:
+
+Load factor is calculated like this: $\alpha = \frac{N}{M}$, where N - number of keys stored, M - number of slots in our Hash Table. 
+
+**Conclusion:** Lower load factor gives us a better distribution (as expected).
+
+
+
+
+
+
+
+
+
+
 
