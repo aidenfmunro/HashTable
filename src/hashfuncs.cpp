@@ -88,3 +88,21 @@ uint64_t rotateLeftHash (const void* seed, size_t htSize)
 
     return hash % htSize; 
 }
+
+uint64_t FNVHash (const void* seed, size_t htSize)
+{
+    uint64_t FNVprime = 0x811C9DC5;
+
+    const char* key = (char*) seed;
+
+    uint64_t hash = key[0];
+    uint64_t keyLength = strlen(key);
+
+    for (uint64_t i = 0; i < keyLength; i++)
+    {
+        hash *= FNVprime;
+        hash ^= key[i];
+    }
+
+    return hash % htSize;
+}
