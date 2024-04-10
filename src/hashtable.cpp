@@ -58,26 +58,8 @@ ErrorCode findElement (HashTable* ht, size_t listIndex, Elem_t elem)
 
     return NOT_FOUND;
 }
-
-ErrorCode fillWithWordLengthHash (HashTable* ht, Text* text)
-{
-    AssertSoft(ht,   NULL_PTR);
-    AssertSoft(text, NULL_PTR);
-
-    for (int i = 0; i < text->numLines; i++)
-    {
-        uint64_t listIndex = ht->hashFunction(&text->lines[i].length, ht->size); // fix this
-
-        if (findElement(ht, listIndex, text->lines[i].string) == NOT_FOUND)
-        {
-            PushBack(&ht->lists[listIndex], text->lines[i].string);
-        } 
-    }
-
-    return OK;
-}
  
-ErrorCode fillWithOtherHashes (HashTable* ht, Text* text)
+ErrorCode fillHashTable (HashTable* ht, Text* text)
 {
     AssertSoft(ht,   NULL_PTR);
     AssertSoft(text, NULL_PTR);
@@ -94,7 +76,7 @@ ErrorCode fillWithOtherHashes (HashTable* ht, Text* text)
 
     return OK;
 }
-`
+
 ErrorCode fillHashData (HashTable* ht, const char* outputFileName, const char* hashName)
 {
     AssertSoft(ht, NULL_PTR);

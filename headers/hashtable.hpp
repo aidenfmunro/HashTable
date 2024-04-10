@@ -27,9 +27,7 @@ ErrorCode DestroyHashTable            (HashTable* ht);
            
 ErrorCode findElement                 (HashTable* ht, size_t listIndex, Elem_t elem);           
     
-ErrorCode fillWithWordLengthHash      (HashTable* ht, Text* text);
-    
-ErrorCode fillWithOtherHashes         (HashTable* ht, Text* text);
+ErrorCode fillHashTable               (HashTable* ht, Text* text);
 
 ErrorCode fillHashData                (HashTable* ht, const char* outputFileName, const char* hashName);
 

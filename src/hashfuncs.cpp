@@ -20,7 +20,7 @@ const int CHAR_POINTER_SIZE = 8;
 
 uint64_t wordLengthHash (const void* seed, size_t htSize)
 {
-    uint64_t hash = *(size_t*) ((char*)seed + CHAR_POINTER_SIZE);
+    uint64_t hash = strlen((char*) seed);
 
     return hash % htSize;
 }
