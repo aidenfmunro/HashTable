@@ -104,6 +104,66 @@ Load factor is calculated like this: $\alpha = \frac{N}{M}$, where N - number of
 
 **Conclusion:** Lower load factor gives us a better distribution (as expected).
 
+### ROR hash
+
+simple code in C:
+
+```
+uint64_t rotateRightHash (const char* str, int length)
+{
+    uint64_t hash = 0;
+
+    for (int i = 0; i < length; i++)
+    {
+        hash = ( (hash >> 1) | (hash << 63) ) ^ str[i]; 
+    }
+
+    return hash;    
+}
+```
+![](histograms/ROR%20hash.png)
+
+Max. amount of collisions: $\approx$ **75 words**
+
+### ROL hash
+
+Same as ROR, but the shifts are inversed.
+
+![](histograms/ROL%20hash.png)
+
+
+Better distribution than ROR, just because the data isn't symmetrical.
+
+Max. amount of collisions: $\approx$ **70 words**
+
+### PNV hash
+
+Fowler–Noll–Vo non-cryptographic hash function. I chose it because of the simplicity it brings. For more info click [here](https://en.wikipedia.org/wiki/Fowler%E2%80%93Noll%E2%80%93Vo_hash_function).
+
+simple code in C:
+
+```
+uint64_t FNVHash (const char* str, int length)
+{
+    uint64_t FNVprime = 0x811C9DC5;
+
+    uint64_t hash = 0;
+
+    for (uint64_t i = 0; i < keyLength; i++)
+    {
+        hash *= FNVprime;
+        hash ^= key[i];
+    }
+
+    return hash;
+}
+```
+
+![](histograms/FNV%20hash.png)
+
+Max. amount of collisions: $\approx$ **60 words**
+
+Best result so far!
 
 
 
