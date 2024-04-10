@@ -16,6 +16,8 @@ print(data)
 
 bins = np.unique(data)
 
+print(bins)
+
 plt.hist(data, bins = bins, color = 'royalblue')
 
 # plt.xscale('log')

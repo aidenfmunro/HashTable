@@ -95,6 +95,8 @@ ErrorCode fillHashData (HashTable* ht, const char* outputFileName, const char* h
         }
     }
 
+    fprintf(outputFile, "%d", ht->size);
+
     myClose(outputFile);
 
     return OK;

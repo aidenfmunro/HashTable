@@ -18,4 +18,6 @@ uint64_t letterSumDivLenHash (const void* seed, size_t htSize);
 
 uint64_t rotateRightHash     (const void* seed, size_t htSize);
 
+uint64_t rotateLeftHash      (const void* seed, size_t htSize);
+
 #endif
