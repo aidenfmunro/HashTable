@@ -26,4 +26,4 @@ plt.xlabel("collision count per bucket")
 plt.ylabel(hash_name)
 
 
-plt.savefig('log/histos/' + hash_name + '.png' )
+plt.savefig('histograms/' + hash_name + '.png' )
