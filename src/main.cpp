@@ -7,7 +7,7 @@
 int main(void)
 {
     HashTable ht = {};
-    size_t bucketsQuantity = 101; // load factor 5
+    size_t bucketsQuantity = 809; // load factor 5 1009
 
     CreateHashTable(&ht, bucketsQuantity, letterSumHash);
 
@@ -16,15 +16,7 @@ int main(void)
 
     fillWithLetterSumHash(&ht, &text);
 
-    int sumSizeOfLists = 0;
-    for (int i = 0; i < ht.size; i++)
-    {
-        sumSizeOfLists += ht.lists[i].size;
-    }
-
-    printf("summed up size of list %d, load factor %d\n", sumSizeOfLists, sumSizeOfLists / ht.size);
-
-    fillHashData(&ht, "hashres.txt", "test");
+    fillHashData(&ht, "hashres.txt", "ASCII sum hash (AWESOME)");
 
     DestroyText(&text);
     DestroyHashTable(&ht);

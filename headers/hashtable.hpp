@@ -25,19 +25,15 @@ ErrorCode CreateHashTable             (HashTable* ht, size_t bucketsQuantity, ha
            
 ErrorCode DestroyHashTable            (HashTable* ht);
            
-ErrorCode findElement                 (HashTable* ht, size_t listIndex, Elem_t elem);
-           
-ErrorCode fillWithZeroHash            (HashTable* ht, Text* text);
+ErrorCode findElement                 (HashTable* ht, size_t listIndex, Elem_t elem);           
     
 ErrorCode fillWithWordLengthHash      (HashTable* ht, Text* text);
     
-ErrorCode fillWithFirstLetterHash     (HashTable* ht, Text* text);
-    
-ErrorCode fillWithLetterSumHash       (HashTable* ht, Text* text);
-
-ErrorCode fillWithLetterSumDivLenHash (HashTable* ht, Text* text);
+ErrorCode fillWithOtherHashes         (HashTable* ht, Text* text);
 
 ErrorCode fillHashData                (HashTable* ht, const char* outputFileName, const char* hashName);
+
+size_t    countSumSizeOfLists         (HashTable* ht);
 
 
 #endif

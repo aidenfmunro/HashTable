@@ -61,7 +61,7 @@ ErrorCode findElement (HashTable* ht, size_t listIndex, Elem_t elem)
 
 ErrorCode fillWithWordLengthHash (HashTable* ht, Text* text)
 {
-    AssertSoft(ht, NULL_PTR);
+    AssertSoft(ht,   NULL_PTR);
     AssertSoft(text, NULL_PTR);
 
     for (int i = 0; i < text->numLines; i++)
@@ -76,28 +76,10 @@ ErrorCode fillWithWordLengthHash (HashTable* ht, Text* text)
 
     return OK;
 }
-
-ErrorCode fillWithZeroHash (HashTable* ht, Text* text)
+ 
+ErrorCode fillWithOtherHashes (HashTable* ht, Text* text)
 {
-    AssertSoft(ht, NULL_PTR);
-    AssertSoft(text, NULL_PTR);
-
-    for (int i = 0; i < text->numLines; i++)
-    {
-        uint64_t listIndex = ht->hashFunction("", ht->size); // fix this
-
-        if (findElement(ht, listIndex, text->lines[i].string) == NOT_FOUND)
-        {
-            PushBack(&ht->lists[listIndex], text->lines[i].string);
-        } 
-    }
-
-    return OK;
-}
-
-ErrorCode fillWithFirstLetterHash (HashTable* ht, Text* text)
-{
-    AssertSoft(ht, NULL_PTR);
+    AssertSoft(ht,   NULL_PTR);
     AssertSoft(text, NULL_PTR);
 
     for (int i = 0; i < text->numLines; i++)
@@ -112,47 +94,7 @@ ErrorCode fillWithFirstLetterHash (HashTable* ht, Text* text)
 
     return OK;
 }
-
-ErrorCode fillWithLetterSumHash (HashTable* ht, Text* text)
-{
-    AssertSoft(ht, NULL_PTR);
-    AssertSoft(text, NULL_PTR);
-
-    for (int i = 0; i < text->numLines; i++)
-    {
-        uint64_t listIndex = ht->hashFunction(text->lines[i].string, ht->size); // fix this
-
-        if (findElement(ht, listIndex, text->lines[i].string) == NOT_FOUND)
-        {
-            PushBack(&ht->lists[listIndex], text->lines[i].string);
-        } 
-    }
-
-    return OK;
-}
-
-ErrorCode fillWithLetterSumDivLenHash (HashTable* ht, Text* text)
-{
-    AssertSoft(ht, NULL_PTR);
-    AssertSoft(text, NULL_PTR);
-
-    for (int i = 0; i < text->numLines; i++)
-
-    uint64_t listIndex = ht->hashFunction(text->lines[i].string, ht->size);
-
-     for (int i = 0; i < text->numLines; i++)
-    {
-        uint64_t listIndex = ht->hashFunction(text->lines[i].string, ht->size); // fix this
-
-        if (findElement(ht, listIndex, text->lines[i].string) == NOT_FOUND)
-        {
-            PushBack(&ht->lists[listIndex], text->lines[i].string);
-        } 
-    }
-
-    return OK;
-}
-
+`
 ErrorCode fillHashData (HashTable* ht, const char* outputFileName, const char* hashName)
 {
     AssertSoft(ht, NULL_PTR);
@@ -174,4 +116,17 @@ ErrorCode fillHashData (HashTable* ht, const char* outputFileName, const char* h
     myClose(outputFile);
 
     return OK;
+}
+
+size_t countSumSizeOfLists (HashTable* ht)
+{
+
+    size_t sumSizeOfLists = 0;
+
+    for (int i = 0; i < ht->size; i++)
+    {
+        sumSizeOfLists += ht->lists[i].size;
+    }
+
+    return sumSizeOfLists;
 }
