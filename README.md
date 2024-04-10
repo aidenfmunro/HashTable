@@ -22,14 +22,14 @@ The goals of this project are:
 
 Let's firstly mark down all of the hash functions:
 
-1. Zero hash
-2. First letter ASCII hash
-3. Word length hash
-4. ASCII sum divided by length hash
-5. ASCII sum hash
-6. ROR hash
-7. ROL hash
-8. PNV hash
+1. [Zero hash](#zero-hash)
+2. [First letter ASCII hash](#first-letter-ascii-hash)
+3. [Word length hash](#word-length-hash)
+4. [ASCII sum divided by length hash](#ascii-sum-divided-by-length-hash)
+5. [ASCII sum hash](#ascii-sum-hash)
+6. [ROR hash](#ror-hash)
+7. [ROL hash](#rol-hash)
+8. [FNV hash](#fnv-hash)
 
 > Further on you will see histograms with collision distributions  
 
@@ -136,7 +136,7 @@ Better distribution than ROR, just because the data isn't symmetrical.
 
 Max. amount of collisions: $\approx$ **70 words**
 
-### PNV hash
+### FNV hash
 
 Fowler–Noll–Vo non-cryptographic hash function. I chose it because of the simplicity it brings. For more info click [here](https://en.wikipedia.org/wiki/Fowler%E2%80%93Noll%E2%80%93Vo_hash_function).
 
