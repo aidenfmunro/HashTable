@@ -33,7 +33,7 @@ ErrorCode fillHashData                (HashTable* ht, const char* outputFileName
 
 size_t    countSumSizeOfLists         (HashTable* ht);
 
-size_t    calculateLoadFactor         (size_t bucketsQuantity, hashFunction_t hashFunction, const char* inputFile);
+double    calculateLoadFactor         (size_t bucketsQuantity, hashFunction_t hashFunction, const char* inputFile);
 
 
 #endif

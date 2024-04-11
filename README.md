@@ -180,6 +180,20 @@ Max. amount of collisions: $\approx$ **16 words**
 
 Best result so far!
 
+Comparison table:
+
+| N | Hash | Table size | Expected value | Dispersion |
+|:-:|:--|:-:|:-:|:-:|
+| 1 | `Zero` | 5009 | 5.8 | 170854.00 |
+| 2 | `First letter` | 5009 | 5.8 | 9820.45 |
+| 3 | `Word length` | 5009 | 5.8 | 19997.20 |
+| 4 | `ASCII sum divided by length` | 5009 | 5.8 | 19371.30 |
+| 5 | `ASCII sum` | 101 | 289.7 | 19894.40
+| 6 | `ASCII sum` | 5009 | 5.8 | 291.09 |
+| 7 | `ROR` | 5009 | 5.8 | 27.59 |
+| 8 | `ROL` | 5009 | 5.8 | 13.76 |
+| 9 | `FNV` | 5009 | 5.8 | 9.73 |
+
 
 
 

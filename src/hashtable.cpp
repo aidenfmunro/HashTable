@@ -115,7 +115,7 @@ size_t countSumSizeOfLists (HashTable* ht)
     return sumSizeOfLists - ht->size; // because of the shadow element in the list
 }
 
-size_t calculateLoadFactor (size_t bucketsQuantity, hashFunction_t hashFunction, const char* inputFile)
+double calculateLoadFactor (size_t bucketsQuantity, hashFunction_t hashFunction, const char* inputFile)
 {
     HashTable ht = {};
     CreateHashTable(&ht, bucketsQuantity, hashFunction);
@@ -125,10 +125,24 @@ size_t calculateLoadFactor (size_t bucketsQuantity, hashFunction_t hashFunction,
 
     fillHashTable(&ht, &text);
 
-    size_t LoadFactor = (double) countSumSizeOfLists(&ht) / (double) bucketsQuantity;
+    double LoadFactor = (double) countSumSizeOfLists(&ht) / (double) bucketsQuantity;
+
+    double varianceFactor = 0;
+
+    for (int i = 0; i < bucketsQuantity; i++)
+    {
+        if (ht.lists[i].size > 1)
+        {
+            varianceFactor += (LoadFactor - ht.lists[i].size - 1) * (LoadFactor - ht.lists[i].size - 1);
+        }
+    }
+
+    // printf("variance: %lg\n", varianceFactor / bucketsQuantity);
 
     DestroyText(&text);
     DestroyHashTable(&ht);
 
-    return LoadFactor;
+    return varianceFactor / bucketsQuantity;
 }
+
+
