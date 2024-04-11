@@ -49,9 +49,13 @@ The text I use (Shakespeare) as data to explore contains only lower case words, 
 
 ![](histograms/First%20char%20hash.png)
 
+Let's have a look in log scale:
+
+![](histograms/First%20char%20hash%20(log).png)
+
 Better result, but still not so good.
 
-Max. amount of collisions: $\approx$ **3500 words**
+Max. amount of collisions: $\approx$ **2500 words**
 
 ### Word length hash
 
@@ -74,7 +78,11 @@ My thoughts are thah the division here is unnecessary. Because the ASCII sum has
 
 ![](histograms/ASCII%20sum%20divided%20by%20length%20hash.png)
 
-Max. amount of collisions: $\approx$ **5000 words**
+A better glance:
+
+![](histograms/ASCII%20sum%20divided%20by%20length%20(log).png)
+
+Max. amount of collisions: $\approx$ **4500 words**
 
 ### ASCII sum hash
 
@@ -82,7 +90,7 @@ From previous histograms I can conclude that the avarage length is 10. We can us
 
 ![](histograms/ASCII%20sum%20hash.png)
 
-Max. amount of collisions: $\approx$ **140 words**
+Max. amount of collisions: $\approx$ **115 words**
 
 Let's compare 2 ASCII sum hashes:
 
@@ -123,7 +131,7 @@ uint64_t rotateRightHash (const char* str, int length)
 ```
 ![](histograms/ROR%20hash.png)
 
-Max. amount of collisions: $\approx$ **75 words**
+Max. amount of collisions: $\approx$ **30 words**
 
 Let's compare ROR hash in Godbolt using x86-64 gcc 13.2 compiler with -O0 and -O2 optimizations.
 
@@ -140,7 +148,7 @@ Same as ROR, but the shifts are inversed.
 
 Better distribution than ROR, just because the data isn't symmetrical.
 
-Max. amount of collisions: $\approx$ **70 words**
+Max. amount of collisions: $\approx$ **20 words**
 
 ### FNV hash
 
@@ -168,7 +176,7 @@ uint64_t FNVHash (const char* str, int length)
 
 ![](histograms/FNV%20hash.png)
 
-Max. amount of collisions: $\approx$ **60 words**
+Max. amount of collisions: $\approx$ **16 words**
 
 Best result so far!
 

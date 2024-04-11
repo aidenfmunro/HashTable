@@ -112,5 +112,23 @@ size_t countSumSizeOfLists (HashTable* ht)
         sumSizeOfLists += ht->lists[i].size;
     }
 
-    return sumSizeOfLists;
+    return sumSizeOfLists - ht->size; // because of the shadow element in the list
+}
+
+size_t calculateLoadFactor (size_t bucketsQuantity, hashFunction_t hashFunction, const char* inputFile)
+{
+    HashTable ht = {};
+    CreateHashTable(&ht, bucketsQuantity, hashFunction);
+
+    Text text = {};
+    CreateText(&text, inputFile);
+
+    fillHashTable(&ht, &text);
+
+    size_t LoadFactor = (double) countSumSizeOfLists(&ht) / (double) bucketsQuantity;
+
+    DestroyText(&text);
+    DestroyHashTable(&ht);
+
+    return LoadFactor;
 }
