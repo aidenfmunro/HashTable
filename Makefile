@@ -16,10 +16,10 @@ release : CFLAGS=-Wno-narrowing -Wno-pointer-arith -O3 -std=c++17
 release : $(TARGET)	
 
 $(TARGET) : $(OBJ)
-	$(CC) $(HEADERS) $(CFLAGS) $^ -o $@
+	@$(CC) $(HEADERS) $(CFLAGS) $^ -o $@
 
 $(PREF_OBJ)%.o : $(PREF_SRC)%.cpp
-	$(CC) $(HEADERS) $(CFLAGS) -c $^ -o $@
+	@$(CC) $(HEADERS) $(CFLAGS) -c $^ -o $@
 
 dirs:
 	mkdir obj log log/dot log/img
