@@ -194,6 +194,16 @@ Comparison table:
 | 8 | `ROL` | 5009 | 5.8 | 13.76 |
 | 9 | `FNV` | 5009 | 5.8 | 9.73 |
 
+# Part 2. Optimizations
+
+## Modulo operator. Inline assembly
+
+The modulo operator `%` is expensive because the instruction 'idiv' in x86 is used and the ramainder is stored in `RDX` (for  64-bit mode). We can optimize this, but the hash table size has to be 2^n. In this case we can use bitwise 'and' with a 2^n - 1 mask.
+
+```
+x mod 2^n <=> x & (2^n - 1)
+
+```
 
 
 
