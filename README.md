@@ -198,12 +198,33 @@ Comparison table:
 
 ## Modulo operator. Inline assembly
 
-The modulo operator `%` is expensive because the instruction 'idiv' in x86 is used and the ramainder is stored in `RDX` (for  64-bit mode). We can optimize this, but the hash table size has to be 2^n. In this case we can use bitwise 'and' with a 2^n - 1 mask.
+The modulo operator `%` is expensive because the instruction `idiv` in x86 is used and the ramainder is stored in `RDX` (for  64-bit mode). We can optimize this, but the hash table size has to be 2^n. In this case we can use bitwise `and` with a 2^n - 1 bit mask.
 
 ```
 x mod 2^n <=> x & (2^n - 1)
 
 ```
+
+Let's rewrite the code using inline assembly:
+
+```
+asm volatile 
+        (
+         "and %1, %0\n\t"
+
+         : "+rm" (hash)
+
+         : "rm" (htSize - 1)
+        );
+```
+
+Using the volatile qualifier we disable compiler optimizations because we have already optimized this part and don't need changes.
+
+Check [GCC Extended ASM](https://gcc.gnu.org/onlinedocs/gcc/Extended-Asm.html) for more.
+
+Results:
+
+
 
 
 
