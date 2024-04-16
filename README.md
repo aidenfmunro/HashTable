@@ -194,7 +194,6 @@ The modulo operator `%` is expensive because the instruction `idiv` in x86 is us
 
 ```
 x mod 2^n <=> x & (2^n - 1)
-
 ```
 
 Let's rewrite the code using inline assembly:

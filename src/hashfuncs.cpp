@@ -51,6 +51,11 @@ uint64_t letterSumDivLenHash (const void* seed, size_t seedLength)
     return (uint64_t)( (double) hash / (double) seedLength);
 }
 
+inline static uint64_t rotateRight (uint64_t hash) 
+{
+    return ( (hash >> 1) | (hash << 63) );
+}
+
 uint64_t rotateRightHash (const void* seed, size_t seedLength)
 {
     const char* key = (char*) seed;
@@ -59,10 +64,15 @@ uint64_t rotateRightHash (const void* seed, size_t seedLength)
 
     for (uint64_t i = 0; i < seedLength; i++)
     {
-        hash = ( (hash >> 1) | (hash << 63) ) ^ key[i]; 
+        hash = rotateRight(hash) ^ key[i]; 
     }
 
     return hash;    
+}
+
+inline static uint64_t rotateLeft (uint64_t hash) 
+{
+    return ( (hash << 1) | (hash >> 63) );
 }
 
 uint64_t rotateLeftHash (const void* seed, size_t seedLength)
@@ -73,7 +83,7 @@ uint64_t rotateLeftHash (const void* seed, size_t seedLength)
 
     for (uint64_t i = 0; i < seedLength; i++)
     {
-        hash = ( (hash << 1) | (hash >> 63) ) ^ key[i]; 
+        hash = rotateLeft(hash) ^ key[i]; 
     }
 
     return hash; 
