@@ -10,7 +10,7 @@
 #include "textfuncs.hpp"
 #include "utils.hpp"
 
-typedef uint64_t (*hashFunction_t)(const void* seed, size_t size); 
+typedef uint64_t (*hashFunction_t)(const void* seed, size_t seedLength); 
 
 struct HashTable
 {

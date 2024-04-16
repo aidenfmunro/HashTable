@@ -20,7 +20,7 @@ print(bins)
 
 plt.hist(data, bins = bins, color = 'royalblue')
 
-plt.xscale('log')
+# plt.xscale('log')
 
 plt.xlabel("collision count per bucket")
 plt.ylabel(hash_name)

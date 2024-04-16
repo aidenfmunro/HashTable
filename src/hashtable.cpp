@@ -42,8 +42,8 @@ ErrorCode DestroyHashTable (HashTable* ht)
 
 ErrorCode findElement (HashTable* ht, size_t listIndex, Elem_t elem)
 {
-    AssertSoft(ht, NULL_PTR);
-    AssertSoft(elem, NULL_PTR);
+    AssertSoft(ht,                   NULL_PTR);
+    AssertSoft(elem,                 NULL_PTR);
     AssertSoft(listIndex < ht->size, INDEX_OUT_OF_RANGE);
 
     for (int elemIndex = 0; elemIndex < ht->lists[listIndex].size; elemIndex++)
@@ -66,7 +66,9 @@ ErrorCode fillHashTable (HashTable* ht, Text* text)
 
     for (int i = 0; i < text->numLines; i++)
     {
-        uint64_t listIndex = ht->hashFunction(text->lines[i].string, ht->size); // fix this
+        uint64_t listIndex = ht->hashFunction(text->lines[i].string, text->lines[i].length); 
+
+        listIndex %= ht->size;
 
         if (findElement(ht, listIndex, text->lines[i].string) == NOT_FOUND)
         {
@@ -79,9 +81,9 @@ ErrorCode fillHashTable (HashTable* ht, Text* text)
 
 ErrorCode fillHashData (HashTable* ht, const char* outputFileName, const char* hashName)
 {
-    AssertSoft(ht, NULL_PTR);
+    AssertSoft(ht,             NULL_PTR);
     AssertSoft(outputFileName, NULL_PTR);
-    AssertSoft(hashName, NULL_PTR);
+    AssertSoft(hashName,       NULL_PTR);
 
     myOpen(outputFileName, "w", outputFile);
 
@@ -104,6 +106,7 @@ ErrorCode fillHashData (HashTable* ht, const char* outputFileName, const char* h
 
 size_t countSumSizeOfLists (HashTable* ht)
 {
+    AssertSoft(ht, NULL_PTR);
 
     size_t sumSizeOfLists = 0;
 

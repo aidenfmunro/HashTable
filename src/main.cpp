@@ -6,28 +6,26 @@
 
 int main(void)
 {
-    //HashTable ht = {};
-    //size_t bucketsQuantity = 5009; // 35265
-//
-    //CreateHashTable(&ht, bucketsQuantity, letterSumDivLenHash);
-//
-    //Text text = {};
-    //CreateText(&text, "txt/result.txt");
-//
-    //fillHashTable(&ht, &text);
-//
-    //printf("%d", countSumSizeOfLists(&ht));
-//
-    //fillHashData(&ht, "hashres.txt", "ASCII sum divided by length (log)");
-//
-    //DestroyText(&text);
-    //DestroyHashTable(&ht);
+    HashTable ht = {};
+    size_t bucketsQuantity = 5009; // 35265
 
-    printf("1. %lg\n",
-                        calculateLoadFactor(5009, zeroHash, "txt/result.txt"));
+    CreateHashTable(&ht, bucketsQuantity, rotateRightHash);
+
+    Text text = {};
+    CreateText(&text, "txt/result.txt");
+
+    fillHashTable(&ht, &text);
+
+    printf("%d", countSumSizeOfLists(&ht));
+
+    fillHashData(&ht, "hashres.txt", "test for work ror");
+
+    DestroyText(&text);
+    DestroyHashTable(&ht);
 
     return OK;
 }
+
 
 
 
