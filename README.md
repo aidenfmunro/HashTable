@@ -6,13 +6,13 @@ This project is dedicated to investigating the Hash Table data structure.
 
 ## Objectives
 
-The goals of this project are:
+The goals of this project are to:
 
-0. To implement a simple Hash Table using cache-friendly doubly linked list for handling collisions.
+0. implement a simple Hash Table using cache-friendly doubly linked list for handling collisions.
 
-1. To test and compare different hash functions under certain conditions and choose the best one.
+1. test and compare different hash functions under certain conditions and choose the best one.
 
-2. To determine hotspots, analyze them and optimize using:
+2. determine hotspots, analyze them and optimize using:
 
     * Inline assembly
     * Intrinsics
@@ -30,6 +30,8 @@ Let's firstly mark down all of the hash functions:
 6. [ROR hash](#ror-hash)
 7. [ROL hash](#rol-hash)
 8. [FNV hash](#fnv-hash)
+
+For benchmarks i used Shakespeares text that contains around 30000 word, hash table size is 5009 which is a prime number, it was chosen not randomly ... FIXME 
 
 > Further on you will see histograms with collision distributions  
 
@@ -49,7 +51,7 @@ The text I use (Shakespeare) as data to explore contains only lower case words, 
 
 ![](histograms/First%20char%20hash%20(log)-imageonline.co-merged.png)
 
-Better result, but still not so good.
+Not so good.
 
 Max. amount of collisions: $\approx$ **2500 words**
 
@@ -98,7 +100,7 @@ Some theory:
 
 Load factor is calculated like this: $\alpha = \frac{N}{M}$, where N - number of keys stored, M - number of slots in our Hash Table. 
 
-**Conclusion:** Lower load factor gives us a better distribution (as expected).
+**Conclusion:** Lower load factor gives us a better distribution (as expected). FIXME put comparison before and rewrite the conclusion.
 
 ### ROR hash
 
@@ -125,7 +127,7 @@ Let's compare ROR hash in Godbolt using x86-64 gcc 13.2 compiler with -O0 and -O
 
 ![](screenshots/rorcmpgodbolt.png)
 
-We can see that with the -O2 flag the compiler recognizes and replaces the body with the rorx instruction. You can check out more about the x86 rorx instruction [here](https://www.felixcloutier.com/x86/rorx).
+Ror was replaced with rorx. FIXME [here](https://www.felixcloutier.com/x86/rorx).
 
 ### ROL hash
 
@@ -170,7 +172,7 @@ Best result so far!
 
 Comparison table:
 
-| N | Hash | Table size | Expected value | Dispersion |
+| N | Hash | Table size | Mean value | Dispersion |
 |:-:|:--|:-:|:-:|:-:|
 | 1 | `Zero` | 5009 | 5.8 | 170854.00 |
 | 2 | `First letter` | 5009 | 5.8 | 9820.45 |
@@ -182,11 +184,13 @@ Comparison table:
 | 8 | `ROL` | 5009 | 5.8 | 13.76 |
 | 9 | `FNV` | 5009 | 5.8 | 9.73 |
 
+**Conclusion** Write about dispersion more. FIXME. If the mean value is low, then the it won't be cache-friendly which is one of the reasons, the main question is finding a hash function that won't create any collisions. If the mean value is high, then the amount of collision will be high as well meaning that finding elements will be slower. PUT THIS IN THE BEGINNING    
+
 # Part 2. Optimizations
 
 ## Modulo operator. Inline assembly
 
-The modulo operator `%` is expensive because the instruction `idiv` in x86 is used and the ramainder is stored in `RDX` (for  64-bit mode). We can optimize this, but the hash table size has to be 2^n. In this case we can use bitwise `and` with a 2^n - 1 bit mask.
+The modulo operator `%` is expensive because the instruction `idiv` in x86 is used and the remainder is stored in `RDX` (for  64-bit mode). We can optimize this, but the hash table size has to be 2^n. In this case we can use bitwise `and` with a 2^n - 1 bit mask.
 
 ```
 x mod 2^n <=> x & (2^n - 1)
