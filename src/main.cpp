@@ -4,24 +4,68 @@
 #include "textfuncs.hpp"
 #include "listdump.hpp"
 
+ErrorCode benchmarkHashFunctions (HashTable* ht);
+
 int main(void)
 {
     HashTable ht = {};
+
+    benchmarkHashFunctions(&ht);
+
+    return OK;
+}
+
+ErrorCode benchmarkHashFunctions (HashTable* ht)
+{
+    AssertSoft(ht, NULL_PTR);
+
     size_t bucketsQuantity = 5009; // 35265
 
-    CreateHashTable(&ht, bucketsQuantity, rotateRightHash);
 
     Text text = {};
     CreateText(&text, "txt/result.txt");
 
-    fillHashTable(&ht, &text);
+    CreateHashTable(ht, bucketsQuantity, zeroHash);
+    fillHashTable(ht, &text);
+    fillHashData(ht, "hashres.txt", "Zero hash");
+    DestroyHashTable(ht);
 
-    printf("%d", countSumSizeOfLists(&ht));
+    CreateHashTable(ht, bucketsQuantity, firstLetterHash);
+    fillHashTable(ht, &text);
+    fillHashData(ht, "hashres.txt", "First char hash");
+    DestroyHashTable(ht);
 
-    fillHashData(&ht, "hashres.txt", "test for work ror");
+    CreateHashTable(ht, bucketsQuantity, wordLengthHash);
+    fillHashTable(ht, &text);
+    fillHashData(ht, "hashres.txt", "String length hash");
+    DestroyHashTable(ht);
+
+    CreateHashTable(ht, bucketsQuantity, letterSumDivLenHash);
+    fillHashTable(ht, &text);
+    fillHashData(ht, "hashres.txt", "ASCII sum divided by length hash");
+    DestroyHashTable(ht);
+
+    CreateHashTable(ht, bucketsQuantity, letterSumHash);
+    fillHashTable(ht, &text);
+    fillHashData(ht, "hashres.txt", "ASCII sum hash");
+    DestroyHashTable(ht);
+
+    CreateHashTable(ht, bucketsQuantity, rotateLeftHash);
+    fillHashTable(ht, &text);
+    fillHashData(ht, "hashres.txt", "ROL hash");
+    DestroyHashTable(ht);
+
+    CreateHashTable(ht, bucketsQuantity, rotateRightHash);
+    fillHashTable(ht, &text);
+    fillHashData(ht, "hashres.txt", "ROR hash");
+    DestroyHashTable(ht);
+
+    CreateHashTable(ht, bucketsQuantity, FNVHash);
+    fillHashTable(ht, &text);
+    fillHashData(ht, "hashres.txt", "FNV hash");
+    DestroyHashTable(ht);
 
     DestroyText(&text);
-    DestroyHashTable(&ht);
 
     return OK;
 }

@@ -37,7 +37,7 @@ Let's firstly mark down all of the hash functions:
 
 This hash always returns 0, so it's obvious that all of the elements will be stored in 1st cell.
 
-![](histograms/Zero%20hash.png)
+![](histograms/Zero%20hash%20(log)-imageonline.co-merged.png)
 
 It's not so great, because the time to get the last element depends on the amount of values we insert, which is not what we are looking for.
 
@@ -47,11 +47,7 @@ Max. amount of collisions: $\approx$ **29000 words**
 
 The text I use (Shakespeare) as data to explore contains only lower case words, from this we can conclude that the words are distributed in cells numerated from 97 to 122.
 
-![](histograms/First%20char%20hash.png)
-
-Let's have a look in log scale:
-
-![](histograms/First%20char%20hash%20(log).png)
+![](histograms/First%20char%20hash%20(log)-imageonline.co-merged.png)
 
 Better result, but still not so good.
 
@@ -62,11 +58,7 @@ Max. amount of collisions: $\approx$ **2500 words**
 The situation here is quite similair. I've quickly made a python script to find out the longest word in the text. 
 The word is honorificabilitudinitatibus and it's 27 symbols long.
 
-![](histograms/String%20length%20hash.png)
-
-A better look in log scale:
-
-![](histograms/String%20length%20hash%20(log).png)
+![](histograms/String%20length%20hash%20(log)-imageonline.co-merged.png)
 
 Most of the words are less than 20 symbols long, that means that this hash is worse than the previous one.
 
@@ -76,11 +68,7 @@ Max. amount of collisions: $\approx$ **5000 words**
 
 My thoughts are thah the division here is unnecessary. Because the ASCII sum hash has a decent distribution.
 
-![](histograms/ASCII%20sum%20divided%20by%20length%20hash.png)
-
-A better glance:
-
-![](histograms/ASCII%20sum%20divided%20by%20length%20(log).png)
+![](histograms/ASCII%20sum%20divided%20by%20length%20hash%20(log)-imageonline.co-merged.png)
 
 Max. amount of collisions: $\approx$ **4500 words**
 

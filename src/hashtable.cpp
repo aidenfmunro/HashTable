@@ -101,6 +101,9 @@ ErrorCode fillHashData (HashTable* ht, const char* outputFileName, const char* h
 
     myClose(outputFile);
 
+    system("python3 scripts/plot.py hashres.txt");
+    system("python3 scripts/plotlog.py hashres.txt");
+
     return OK;
 }
 

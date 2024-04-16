@@ -20,10 +20,10 @@ print(bins)
 
 plt.hist(data, bins = bins, color = 'royalblue')
 
-# plt.xscale('log')
+plt.xscale('log')
 
 plt.ylabel("collision count per bucket")
 plt.xlabel(hash_name)
 
 
-plt.savefig('histograms/' + hash_name + '.png' )
+plt.savefig('histograms/' + hash_name + ' (log) ' +'.png')
