@@ -188,6 +188,32 @@ Comparison table:
 
 # Part 2. Optimizations
 
+## Strcmp function. Intrinsics
+
+First of all we need find out which parts of code to optimize. That's why I've used `Hotspot` - a GUI for Linux `perf`. Let's have a look at the analysis.
+
+![](screenshots/perfres.png)
+
+Indeed, most of the search time is spent on comparing two words.
+ 
+`strcmp()` is already vectorized by the authors of the C standard library. So in order to perform better we shall use the information we now about the text. The longest word in the text is `honorificabilitudinitatibus` which is 27 letters long and it fits into a `YMM` register. Now that we now that information let's align each word allocation by 32 bytes, which allows to use one `AVX2` comparison. 
+
+Here is my optimized strcmp function:
+
+```
+int mystrcmp (const char* s1, const char* s2)
+{
+    __m256i s1_ = _mm256_loadu_si256((const __m256i*) s1);
+    __m256i s2_ = _mm256_loadu_si256((const __m256i*) s2);
+
+    return ~(_mm256_movemask_epi8(_mm256_cmpeq_epi8(s1_, s2_))); 
+}
+```
+
+
+
+
+
 ## Modulo operator. Inline assembly
 
 The modulo operator `%` is expensive because the instruction `idiv` in x86 is used and the remainder is stored in `RDX` (for  64-bit mode). We can optimize this, but the hash table size has to be 2^n. In this case we can use bitwise `and` with a 2^n - 1 bit mask.
