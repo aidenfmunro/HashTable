@@ -209,7 +209,33 @@ int mystrcmp (const char* s1, const char* s2)
     return ~(_mm256_movemask_epi8(_mm256_cmpeq_epi8(s1_, s2_))); 
 }
 ```
+
+**Results:** $1.52$ boost compared to base. 
 ## Modulo operator. Inline assembly
+
+I've noticed that in the function `fillHashTable` there is one line (72) that has a longer execution time then others, let me show you:
+
+![](screenshots/modres.png)
+
+The code:
+
+```
+    ...
+
+  68:   for (int i = 0; i < text->numLines; i++)
+        {
+  70:       uint64_t listIndex = ht->hashFunction(text->lines[i].string, text->lines[i].length); 
+    
+  72:       listIndex %= ht->size;
+    
+  74:       if (findElement(ht, listIndex, text->lines[i].string) == NOT_FOUND)
+            {
+  76:            PushBack(&ht->lists[listIndex], text->lines[i].string);
+            } 
+        }
+
+    ...
+```
 
 The modulo operator `%` is expensive because the instruction `idiv` in x86 is used and the remainder is stored in `RDX` (for  64-bit mode). We can optimize this, but the hash table size has to be 2^n. In this case we can use bitwise `and` with a 2^n - 1 bit mask.
 
