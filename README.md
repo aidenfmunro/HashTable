@@ -209,11 +209,6 @@ int mystrcmp (const char* s1, const char* s2)
     return ~(_mm256_movemask_epi8(_mm256_cmpeq_epi8(s1_, s2_))); 
 }
 ```
-
-
-
-
-
 ## Modulo operator. Inline assembly
 
 The modulo operator `%` is expensive because the instruction `idiv` in x86 is used and the remainder is stored in `RDX` (for  64-bit mode). We can optimize this, but the hash table size has to be 2^n. In this case we can use bitwise `and` with a 2^n - 1 bit mask.
