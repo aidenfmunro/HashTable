@@ -49,7 +49,7 @@ ErrorCode findElement (HashTable* ht, size_t listIndex, Elem_t elem)
 
     for (int elemIndex = 0; elemIndex < ht->lists[listIndex].size; elemIndex++)
     {
-        if (! strcmp(elem, ht->lists[listIndex].ptr[elemIndex].value))
+        if (! mystrcmp(elem, ht->lists[listIndex].ptr[elemIndex].value))
         {
             ht->lists[listIndex].ptr[elemIndex].count += 1;
 
