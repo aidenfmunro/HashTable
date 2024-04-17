@@ -35,5 +35,4 @@ size_t    countSumSizeOfLists         (HashTable* ht);
 
 double    calculateLoadFactor         (size_t bucketsQuantity, hashFunction_t hashFunction, const char* inputFile);
 
-
 #endif

@@ -1,4 +1,5 @@
 #include "hashtable.hpp"
+#include "mystrcmp.h"
 
 // Aiden: maybe use uint64_t for size? (or use size_t everywhere?)
 
@@ -39,8 +40,6 @@ ErrorCode DestroyHashTable (HashTable* ht)
 
     return OK;
 }
-
-#include "mystrcmp.h"
 
 ErrorCode findElement (HashTable* ht, size_t listIndex, Elem_t elem)
 {
