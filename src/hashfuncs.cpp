@@ -12,12 +12,6 @@ uint64_t firstLetterHash (const void* seed, size_t seedLength)
     return hash;
 }
 
-// Give the pointer of the number location
-
-const int CHAR_POINTER_SIZE = 8;
-
-// struct Line {char* ..., size_t length}
-
 uint64_t wordLengthHash (const void* seed, size_t seedLength)
 {
     return (uint64_t) seedLength;

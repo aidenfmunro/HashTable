@@ -11,7 +11,7 @@ const size_t FREE_ELEM = -1;
 
 const int MULTIPLIER = 2;
 
-const Elem_t POISON = "POISON";
+const Elem_t POISON = "POISONPOISONPOISONPOISONPOISON32";
 
 const int DEFAULT_LIST_CAPACITY = 8;
 

@@ -10,7 +10,16 @@ int main(void)
 {
     HashTable ht = {};
 
-    benchmarkHashFunctions(&ht);
+    Text text = {};
+    CreateText(&text, "txt/result.txt");
+
+    size_t bucketsQuantity = 5009; 
+
+    CreateHashTable(&ht, bucketsQuantity, FNVHash);
+    fillHashTable(&ht, &text);
+    DestroyHashTable(&ht);
+
+    DestroyText(&text);
 
     return OK;
 }
@@ -19,7 +28,7 @@ ErrorCode benchmarkHashFunctions (HashTable* ht)
 {
     AssertSoft(ht, NULL_PTR);
 
-    size_t bucketsQuantity = 5009; // 35265
+    size_t bucketsQuantity = 5009;
 
 
     Text text = {};

@@ -40,6 +40,8 @@ ErrorCode DestroyHashTable (HashTable* ht)
     return OK;
 }
 
+#include "mystrcmp.h"
+
 ErrorCode findElement (HashTable* ht, size_t listIndex, Elem_t elem)
 {
     AssertSoft(ht,                   NULL_PTR);
@@ -48,7 +50,7 @@ ErrorCode findElement (HashTable* ht, size_t listIndex, Elem_t elem)
 
     for (int elemIndex = 0; elemIndex < ht->lists[listIndex].size; elemIndex++)
     {
-        if (! strcmp(elem, ht->lists[listIndex].ptr[elemIndex].value))
+        if (! mystrcmp(elem, ht->lists[listIndex].ptr[elemIndex].value))
         {
             ht->lists[listIndex].ptr[elemIndex].count += 1;
 

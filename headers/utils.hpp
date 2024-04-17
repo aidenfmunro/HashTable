@@ -37,6 +37,9 @@ enum ERRORS
     if (!var)                                           \
         return NO_MEMORY_AVAILABLE;
 
+
+#ifdef DEBUG
+
 #define AssertSoft(expression, error, ...)                                                                   \
 if (!(expression))                                                                                           \
 {                                                                                                            \
@@ -46,6 +49,12 @@ if (!(expression))                                                              
       return error;                                                                                          \
      } while(0);                                                                                             \
 }
+
+#else
+
+#define AssertSoft(expression, error, ...)
+
+#endif
 
 #define myOpen(filename, mode, fileVar)        \
         FILE* fileVar = fopen(filename, mode); \
