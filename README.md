@@ -210,7 +210,8 @@ int mystrcmp (const char* s1, const char* s2)
 }
 ```
 
-**Results:** $1.52$ boost compared to base. 
+**Results:** $ 52 \%$ boost compared to base.
+ 
 ## Modulo operator. Inline assembly
 
 I've noticed that in the function `fillHashTable` there is one line (72) that has a longer execution time then others, let me show you:
