@@ -69,7 +69,14 @@ ErrorCode fillHashTable (HashTable* ht, Text* text)
     {
         uint64_t listIndex = ht->hashFunction(text->lines[i].string, text->lines[i].length); 
 
-        listIndex %= ht->size;
+        asm volatile 
+        (
+         "and %1, %0\n\t"
+        
+         : "+rm" (listIndex)
+        
+         : "rm" (ht->size - 1)
+        );
 
         if (findElement(ht, listIndex, text->lines[i].string) == NOT_FOUND)
         {

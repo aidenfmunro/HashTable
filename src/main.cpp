@@ -13,7 +13,7 @@ int main(void)
     Text text = {};
     CreateText(&text, "txt/result.txt");
 
-    size_t bucketsQuantity = 5009; 
+    size_t bucketsQuantity = 8192; 
 
     CreateHashTable(&ht, bucketsQuantity, FNVHash);
     fillHashTable(&ht, &text);
