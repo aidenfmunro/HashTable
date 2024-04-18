@@ -210,7 +210,7 @@ int mystrcmp (const char* s1, const char* s2)
 }
 ```
 
-**Results:** $ 52 \%$ boost compared to base.
+**Results:** $ 1.52 $ boost compared to standard strcmp.
  
 ## Modulo operator. Inline assembly
 
@@ -261,7 +261,8 @@ Using the volatile qualifier we disable compiler optimizations because we have a
 
 Check [GCC Extended ASM](https://gcc.gnu.org/onlinedocs/gcc/Extended-Asm.html) for more.
 
-Results:
+**Results:** $ 4.03 $ boost compared to modulo operation.
+
 
 
 
