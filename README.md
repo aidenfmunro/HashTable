@@ -173,16 +173,16 @@ Best result so far!
 Comparison table:
 
 | N | Hash | Table size | Mean value | Dispersion |
-|:-:|:--|:-:|:-:|:-:|
-| 1 | `Zero` | 5009 | 5.8 | 170854.00 |
-| 2 | `First letter` | 5009 | 5.8 | 9820.45 |
-| 3 | `Word length` | 5009 | 5.8 | 19997.20 |
-| 4 | `ASCII sum divided by length` | 5009 | 5.8 | 19371.30 |
-| 5 | `ASCII sum` | 101 | 289.7 | 19894.40
-| 6 | `ASCII sum` | 5009 | 5.8 | 291.09 |
-| 7 | `ROR` | 5009 | 5.8 | 27.59 |
-| 8 | `ROL` | 5009 | 5.8 | 13.76 |
-| 9 | `FNV` | 5009 | 5.8 | 9.73 |
+|:-:|:------------------------------|:----:|:-----:|:---------:|
+| 1 | `Zero`                        | 5009 | 5.8   | 170854.00 |
+| 2 | `First letter`                | 5009 | 5.8   | 9820.45   |
+| 3 | `Word length`                 | 5009 | 5.8   | 19997.20  |
+| 4 | `ASCII sum divided by length` | 5009 | 5.8   | 19371.30  |
+| 5 | `ASCII sum`                   | 101  | 289.7 | 19894.40  |
+| 6 | `ASCII sum`                   | 5009 | 5.8   | 291.09    |
+| 7 | `ROR`                         | 5009 | 5.8   | 27.59     |
+| 8 | `ROL`                         | 5009 | 5.8   | 13.76     |
+| 9 | `FNV`                         | 5009 | 5.8   | 9.73      | 
 
 **Conclusion** Write about dispersion more. FIXME. If the mean value is low, then the it won't be cache-friendly which is one of the reasons, the main question is finding a hash function that won't create any collisions. If the mean value is high, then the amount of collision will be high as well meaning that finding elements will be slower. PUT THIS IN THE BEGINNING    
 
