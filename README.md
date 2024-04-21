@@ -192,6 +192,19 @@ Comparison table:
 
 # Part 2. Optimizations
 
+Before we start optimizing I should say that all of the tests were run with -O2 optimization flag, we're not interested in optimizing -O0 code because that's not what people use in reality & 100 samples were used for each test.
+
+Baseline:
+
+| test N      | ticks       |
+|-------------|-------------|
+| 1           | 9331985696  |
+| 2           | 9842519103  |
+| 3           | 12264270138 |
+| 4           | 9766615584  |
+| 5           | 9773937232  |
+| **average** | **10195865550** | 
+
 ## Strcmp function. Intrinsics
 
 First of all we need find out which parts of code to optimize. That's why I've used `Hotspot` - a GUI for Linux `perf`. Let's have a look at the analysis.
@@ -214,7 +227,19 @@ int mystrcmp (const char* s1, const char* s2)
 }
 ```
 
-**Results:** $ 1.52 $ boost compared to standard strcmp.
+**Results:**
+
+| test N      | ticks          |
+|-------------|----------------|
+| 1           | 7733705232     |
+| 2           | 7613690128     |
+| 3           | 7641475190     |
+| 4           | 7653800736     |
+| 5           | 7718224865     |
+| **average** | **7672179230** |
+
+
+### $ 1.32 $ boost compared to baseline.
  
 ## Modulo operator. Inline assembly
 
@@ -265,7 +290,18 @@ Using the volatile qualifier we disable compiler optimizations because we have a
 
 Check [GCC Extended ASM](https://gcc.gnu.org/onlinedocs/gcc/Extended-Asm.html) for more.
 
-**Results:** $ 4.03 $ boost compared to modulo operation.
+**Results:**
+
+| test N      | ticks          |
+|-------------|----------------|
+| 1           | 7401715904     |
+| 2           | 7453692295     |
+| 3           | 7604998528     |
+| 4           | 7339700992     |
+| 5           | 7605932293     |
+| **average** | **7481208002** |
+
+### $ 1.02 $ boost compared to previous optimization.
 
 
 
