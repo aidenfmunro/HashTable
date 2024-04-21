@@ -4,7 +4,7 @@
 
 This project is dedicated to investigating the Hash Table data structure.
 
-We need to find out how many times each word has appeared in a text.
+The goal is to find out how many times each word has been shown in a text.
 
 By utilizing a hashtable, we can quickly track and retrieve how many times a scpecific word has appeared in a text. 
 
@@ -22,6 +22,12 @@ The goals of this project are to:
     * Intrinsics
     * Seperate assembly file
 
+## Initial data
+
+For benchmarks i used Shakespeares text that contains `29258` unique words, a hash table of size `5009` which is a prime number, it should be a prime in order to minimize the number of collisions and to better distribute the keys across the hash table. The mean value (load factor) is `5.8`.
+
+I'm assuming that if the mean value is low, then it won't be cache-friendly which is one of the reasons, the main question is finding a hash function that won't create any collisions. If the mean value is high, then the amount of collision will be high meaning that finding elements will be slower. **This will be researched later on**. 
+ 
 # Part 1. Hash function comparison
 
 Let's firstly mark down all of the hash functions:
@@ -35,9 +41,7 @@ Let's firstly mark down all of the hash functions:
 7. [ROL hash](#rol-hash)
 8. [FNV hash](#fnv-hash)
 
-For benchmarks i used Shakespeares text that contains 29258 unique words, hash table size is 5009 which is a prime number, it should be a prime in order to minimize the number of collisions and to better distribute the keys across the hash table. 
-
-> Further on you will see histograms with collision distributions  
+> The following histograms were made using python and matplotlib library.
 
 ### Zero hash
 
@@ -45,7 +49,7 @@ This hash always returns 0, so it's obvious that all of the elements will be sto
 
 ![](histograms/Zero%20hash%20(log)-imageonline.co-merged.png)
 
-It's not so great, because the time to get the last element depends on the amount of values we insert, which is not what we are looking for.
+It's not so great, because the time to get the last element depends on the amount of values we insert, which is not what we are looking for. 
 
 Max. amount of collisions: $\approx$ **29000 words**
 
@@ -72,31 +76,11 @@ Max. amount of collisions: $\approx$ **5000 words**
 
 ### ASCII sum hash
 
-From previous histograms I can conclude that the avarage length is 10. We can use this result to explain the growth of the peaks: ASCII values are around 100 and the avarage length is 10, 10 * 100 = 1000.   
+From previous histograms I can conclude that the avarage length is 10. We can use this result to explain the growth of the peak: ASCII values are around 100 and the avarage length is 10, so it's quite understandable why we see a high collision count at 1000.   
 
 ![](histograms/ASCII%20sum%20hash.png)
 
 Max. amount of collisions: $\approx$ **115 words**
-
-Let's compare 2 ASCII sum hashes:
-
-1. Hash Table Size = 101 (Prime number)
-
-2. Load factor = 5
-
-**1)**
-
-![](histograms/ASCII%20sum%20hash%20(101%20buckets).png)
-
-**2)**
-
-![](histograms/ASCII%20sum%20hash%20(Load%20factor%20=%205).png)
-
-Some theory:
-
-Load factor is calculated like this: $\alpha = \frac{N}{M}$, where N - number of keys stored, M - number of slots in our Hash Table. 
-
-**Conclusion:** Lower load factor gives us a better distribution (as expected). FIXME put comparison before and rewrite the conclusion.
 
 ### ASCII sum divided by length hash
 
@@ -188,11 +172,11 @@ Comparison table:
 | 8 | `ROL`                         | 5009 | 5.8   | 13.7   |
 | 9 | `FNV`                         | 5009 | 5.8   | 9.76   | 
 
-**Conclusion** Write about dispersion more. FIXME. If the mean value is low, then the it won't be cache-friendly which is one of the reasons, the main question is finding a hash function that won't create any collisions. If the mean value is high, then the amount of collision will be high as well meaning that finding elements will be slower. PUT THIS IN THE BEGINNING    
+**Conclusion** Write about dispersion more. FIXME. 
 
 # Part 2. Optimizations
 
-Before we start optimizing I should say that all of the tests were run with -O2 optimization flag, we're not interested in optimizing -O0 code because that's not what people use in reality & 100 samples were used for each test.
+Before we start optimizing I should say that all of the tests were run with -O2 optimization flag, we're not interested in optimizing -O0 code because that's not what people use in reality. 100 samples were used for each test. FNV hash as the hash function. The size of the hash table is 8192, why I've chosen this number you will find out in the [modulo operation](#modulo-operator-inline-assembly) part.
 
 Baseline:
 
@@ -302,6 +286,8 @@ Check [GCC Extended ASM](https://gcc.gnu.org/onlinedocs/gcc/Extended-Asm.html) f
 | **average** | **7481208002** |
 
 ### $ 1.02 $ boost compared to previous optimization.
+
+
 
 
 
