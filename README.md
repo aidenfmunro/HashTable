@@ -183,7 +183,7 @@ Comparison table:
 | 8 | `ROL`                         | 5009 | 5.8   | 13.7   |
 | 9 | `FNV`                         | 5009 | 5.8   | 9.76   | 
 
-**Conclusion** Write about dispersion more. FIXME. 
+**Conclusion** from the statistics above I can say that the FNV hash function is most suitable and I will be using it further on. Also as you can see in row 3 we can see that low sized hash tables have bigger mean values, therefore bigger dispersion. Dispersion shows us how well the data is spread across the hash table that's why it's important to calculate it.  
 
 # Part 2. Optimizations
 
@@ -297,6 +297,8 @@ Check [GCC Extended ASM](https://gcc.gnu.org/onlinedocs/gcc/Extended-Asm.html) f
 | **average** | **7481208002** |
 
 ### $ 1.02 $ boost compared to previous optimization.
+
+
 
 
 
