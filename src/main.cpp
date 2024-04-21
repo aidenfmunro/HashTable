@@ -15,9 +15,9 @@ int main(void)
     Text text = {};
     CreateText(&text, "txt/result.txt");
 
-    for (size_t testCount = 0; testCount < 5; testCount++)
+    for (size_t testCount = 1; testCount <= 5; testCount++)
     {
-        printf("test_%llu: %llu%n", testCount, testHashTable(8192, FNVHash, &text, 10));
+        printf("test_%llu: %llu\n", testCount, testHashTable(8192, FNVHash, &text, 100));
     }
 
     DestroyText(&text);
@@ -31,7 +31,7 @@ size_t testHashTable (size_t bucketsQuantity, hashFunction_t hashFunction, Text*
 
     size_t time = 0;
 
-    for (size_t sampleCount = 0; sampleCount < sampleSize; sampleCount++);
+    for (int i = 0; i < sampleSize; i++)
     {
         CreateHashTable(&ht, bucketsQuantity, hashFunction);
 
