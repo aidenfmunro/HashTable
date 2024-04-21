@@ -1,85 +1,58 @@
+#include <immintrin.h>
+
 #include "linkedlist.hpp"
 #include "hashtable.hpp"
 #include "hashfuncs.hpp"
 #include "textfuncs.hpp"
 #include "listdump.hpp"
 
-ErrorCode benchmarkHashFunctions (HashTable* ht);
+size_t benchmarkHashTable (HashTable* ht, Text* text);
+
+size_t testHashTable (size_t bucketsQuantity, hashFunction_t hashFunction, Text* text, size_t sampleSize);
 
 int main(void)
 {
+    Text text = {};
+    CreateText(&text, "txt/result.txt");
+
+    for (size_t testCount = 0; testCount < 5; testCount++)
+    {
+        printf("test_%llu: %llu%n", testCount, testHashTable(8192, FNVHash, &text, 10));
+    }
+
+    DestroyText(&text);
+
+    return OK;
+}
+
+size_t testHashTable (size_t bucketsQuantity, hashFunction_t hashFunction, Text* text, size_t sampleSize)
+{
     HashTable ht = {};
 
-    Text text = {};
-    CreateText(&text, "txt/result.txt");
+    size_t time = 0;
 
-    size_t bucketsQuantity = 8192; 
+    for (size_t sampleCount = 0; sampleCount < sampleSize; sampleCount++);
+    {
+        CreateHashTable(&ht, bucketsQuantity, hashFunction);
 
-    CreateHashTable(&ht, bucketsQuantity, FNVHash);
-    fillHashTable(&ht, &text);
-    DestroyHashTable(&ht);
+        time += benchmarkHashTable(&ht, text);
 
-    DestroyText(&text);
+        DestroyHashTable(&ht);
+    }
 
-    return OK;
+    return time;
 }
 
-ErrorCode benchmarkHashFunctions (HashTable* ht)
+size_t benchmarkHashTable (HashTable* ht, Text* text)
 {
-    AssertSoft(ht, NULL_PTR);
+    size_t start = __rdtsc();
 
-    size_t bucketsQuantity = 5009;
+    fillHashTable(ht, text);
 
+    size_t end   = __rdtsc();
 
-    Text text = {};
-    CreateText(&text, "txt/result.txt");
-
-    CreateHashTable(ht, bucketsQuantity, zeroHash);
-    fillHashTable(ht, &text);
-    fillHashData(ht, "hashres.txt", "Zero hash");
-    DestroyHashTable(ht);
-
-    CreateHashTable(ht, bucketsQuantity, firstLetterHash);
-    fillHashTable(ht, &text);
-    fillHashData(ht, "hashres.txt", "First char hash");
-    DestroyHashTable(ht);
-
-    CreateHashTable(ht, bucketsQuantity, wordLengthHash);
-    fillHashTable(ht, &text);
-    fillHashData(ht, "hashres.txt", "String length hash");
-    DestroyHashTable(ht);
-
-    CreateHashTable(ht, bucketsQuantity, letterSumDivLenHash);
-    fillHashTable(ht, &text);
-    fillHashData(ht, "hashres.txt", "ASCII sum divided by length hash");
-    DestroyHashTable(ht);
-
-    CreateHashTable(ht, bucketsQuantity, letterSumHash);
-    fillHashTable(ht, &text);
-    fillHashData(ht, "hashres.txt", "ASCII sum hash");
-    DestroyHashTable(ht);
-
-    CreateHashTable(ht, bucketsQuantity, rotateLeftHash);
-    fillHashTable(ht, &text);
-    fillHashData(ht, "hashres.txt", "ROL hash");
-    DestroyHashTable(ht);
-
-    CreateHashTable(ht, bucketsQuantity, rotateRightHash);
-    fillHashTable(ht, &text);
-    fillHashData(ht, "hashres.txt", "ROR hash");
-    DestroyHashTable(ht);
-
-    CreateHashTable(ht, bucketsQuantity, FNVHash);
-    fillHashTable(ht, &text);
-    fillHashData(ht, "hashres.txt", "FNV hash");
-    DestroyHashTable(ht);
-
-    DestroyText(&text);
-
-    return OK;
+    return end - start;
 }
-
-
 
 
 
