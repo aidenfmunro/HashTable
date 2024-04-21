@@ -126,7 +126,7 @@ Let's compare ROR hash in Godbolt using x86-64 gcc 13.2 compiler with -O0 and -O
 
 ![](screenshots/rorcmpgodbolt.png)
 
-Ror was replaced with rorx. FIXME [here](https://www.felixcloutier.com/x86/rorx).
+The compiler optimizes the ROL hash function by replacing the `rol()` function with a single assembly instruction `ror`.
 
 ### ROL hash
 
