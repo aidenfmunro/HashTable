@@ -4,11 +4,15 @@
 
 This project is dedicated to investigating the Hash Table data structure.
 
+We need to find out how many times each word has appeared in a text.
+
+By utilizing a hashtable, we can quickly track and retrieve how many times a scpecific word has appeared in a text. 
+
 ## Objectives
 
 The goals of this project are to:
 
-0. implement a simple Hash Table using cache-friendly doubly linked list for handling collisions.
+0. implement a simple Hash Table using cache-friendly doubly linked list for handling collisions. 
 
 1. test and compare different hash functions under certain conditions and choose the best one.
 
@@ -25,13 +29,13 @@ Let's firstly mark down all of the hash functions:
 1. [Zero hash](#zero-hash)
 2. [First letter ASCII hash](#first-letter-ascii-hash)
 3. [Word length hash](#word-length-hash)
-4. [ASCII sum divided by length hash](#ascii-sum-divided-by-length-hash)
-5. [ASCII sum hash](#ascii-sum-hash)
+4. [ASCII sum hash](#ascii-sum-hash)
+5. [ASCII sum divided by length hash](#ascii-sum-divided-by-length-hash)
 6. [ROR hash](#ror-hash)
 7. [ROL hash](#rol-hash)
 8. [FNV hash](#fnv-hash)
 
-For benchmarks i used Shakespeares text that contains around 30000 word, hash table size is 5009 which is a prime number, it was chosen not randomly ... FIXME 
+For benchmarks i used Shakespeares text that contains 29258 unique words, hash table size is 5009 which is a prime number, it should be a prime in order to minimize the number of collisions and to better distribute the keys across the hash table. 
 
 > Further on you will see histograms with collision distributions  
 
@@ -66,14 +70,6 @@ Most of the words are less than 20 symbols long, that means that this hash is wo
 
 Max. amount of collisions: $\approx$ **5000 words**
 
-### ASCII sum divided by length hash
-
-My thoughts are thah the division here is unnecessary. Because the ASCII sum hash has a decent distribution.
-
-![](histograms/ASCII%20sum%20divided%20by%20length%20hash%20(log)-imageonline.co-merged.png)
-
-Max. amount of collisions: $\approx$ **4500 words**
-
 ### ASCII sum hash
 
 From previous histograms I can conclude that the avarage length is 10. We can use this result to explain the growth of the peaks: ASCII values are around 100 and the avarage length is 10, 10 * 100 = 1000.   
@@ -101,6 +97,14 @@ Some theory:
 Load factor is calculated like this: $\alpha = \frac{N}{M}$, where N - number of keys stored, M - number of slots in our Hash Table. 
 
 **Conclusion:** Lower load factor gives us a better distribution (as expected). FIXME put comparison before and rewrite the conclusion.
+
+### ASCII sum divided by length hash
+
+My thoughts are thah the division here is unnecessary. Because the ASCII sum hash has a decent distribution.
+
+![](histograms/ASCII%20sum%20divided%20by%20length%20hash%20(log)-imageonline.co-merged.png)
+
+Max. amount of collisions: $\approx$ **4500 words**
 
 ### ROR hash
 
@@ -174,15 +178,15 @@ Comparison table:
 
 | N | Hash | Table size | Mean value | Dispersion |
 |:-:|:------------------------------|:----:|:-----:|:---------:|
-| 1 | `Zero`                        | 5009 | 5.8   | 170854.00 |
-| 2 | `First letter`                | 5009 | 5.8   | 9820.45   |
-| 3 | `Word length`                 | 5009 | 5.8   | 19997.20  |
-| 4 | `ASCII sum divided by length` | 5009 | 5.8   | 19371.30  |
-| 5 | `ASCII sum`                   | 101  | 289.7 | 19894.40  |
-| 6 | `ASCII sum`                   | 5009 | 5.8   | 291.09    |
-| 7 | `ROR`                         | 5009 | 5.8   | 27.59     |
-| 8 | `ROL`                         | 5009 | 5.8   | 13.76     |
-| 9 | `FNV`                         | 5009 | 5.8   | 9.73      | 
+| 1 | `Zero`                        | 5009 | 5.8   | 171000 |
+| 2 | `Word length`                 | 5009 | 5.8   | 20000  |
+| 3 | `ASCII sum`                   | 101  | 289.7 | 19900  |
+| 4 | `ASCII sum divided by length` | 5009 | 5.8   | 19400  |
+| 5 | `First letter`                | 5009 | 5.8   | 9800   |
+| 6 | `ASCII sum`                   | 5009 | 5.8   | 290    |
+| 7 | `ROR`                         | 5009 | 5.8   | 27     |
+| 8 | `ROL`                         | 5009 | 5.8   | 13.7   |
+| 9 | `FNV`                         | 5009 | 5.8   | 9.76   | 
 
 **Conclusion** Write about dispersion more. FIXME. If the mean value is low, then the it won't be cache-friendly which is one of the reasons, the main question is finding a hash function that won't create any collisions. If the mean value is high, then the amount of collision will be high as well meaning that finding elements will be slower. PUT THIS IN THE BEGINNING    
 
