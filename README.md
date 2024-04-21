@@ -1,5 +1,16 @@
 # Hash Table investigation
 
+## System specs
+
+**CPU:** AMD Ryzen 7 5800HS with Radeon Graphics, 3201 Mhz, 8 Core(s), 16 Logical Processor(s)
+
+**RAM:** 16.0 GB
+
+**OS:** Ubuntu 22.04 (WSL)
+
+**Compiler:** g++ 11.4.0
+
+
 ## Introduction
 
 This project is dedicated to investigating the Hash Table data structure.
