@@ -139,6 +139,14 @@ Better distribution than ROR, just because the data isn't symmetrical.
 
 Max. amount of collisions: $\approx$ **20 words**
 
+### CRC32 hash
+
+The CRC32 Hash is a simple and fast hash function that is widely used for data integrity checks, error detection, and identification of duplicates in databases.
+
+![](histograms/CRC32%20Hash.png)
+
+Max. amount of collisions: $\approx$ **15 words**
+
 ### FNV hash
 
 Fowler–Noll–Vo non-cryptographic hash function. I chose it because of the simplicity it brings. For more info click [here](https://en.wikipedia.org/wiki/Fowler%E2%80%93Noll%E2%80%93Vo_hash_function).
@@ -171,23 +179,24 @@ Best result so far!
 
 Comparison table:
 
-| N | Hash | Table size | Mean value | Dispersion |
-|:-:|:------------------------------|:----:|:-----:|:---------:|
-| 1 | `Zero`                        | 5009 | 5.8   | 171000 |
-| 2 | `Word length`                 | 5009 | 5.8   | 20000  |
-| 3 | `ASCII sum`                   | 101  | 289.7 | 19900  |
-| 4 | `ASCII sum divided by length` | 5009 | 5.8   | 19400  |
-| 5 | `First letter`                | 5009 | 5.8   | 9800   |
-| 6 | `ASCII sum`                   | 5009 | 5.8   | 290    |
-| 7 | `ROR`                         | 5009 | 5.8   | 27     |
-| 8 | `ROL`                         | 5009 | 5.8   | 13.7   |
-| 9 | `FNV`                         | 5009 | 5.8   | 9.76   | 
+| N  | Hash | Table size | Mean value | Dispersion |
+|:--:|:------------------------------|:----:|:-----:|:---------:|
+| 1  | `Zero`                        | 5009 | 5.8   | 171000    |
+| 2  | `Word length`                 | 5009 | 5.8   | 20000     |
+| 3  | `ASCII sum`                   | 101  | 289.7 | 19900     |
+| 4  | `ASCII sum divided by length` | 5009 | 5.8   | 19400     |
+| 5  | `First letter`                | 5009 | 5.8   | 9800      |
+| 6  | `ASCII sum`                   | 5009 | 5.8   | 290       |
+| 7  | `ROR`                         | 5009 | 5.8   | 27        |
+| 8  | `ROL`                         | 5009 | 5.8   | 13.7      |
+| 9  | `CRC32`                       | 5009 | 5.8   | 9.81      |
+| 10 | `FNV`                         | 5009 | 5.8   | 9.76      | 
 
 **Conclusion:** from the statistics above I can say that the FNV hash function is most suitable and I will be using it further on. Also as you can see in row 3 we can see that low sized hash tables have bigger mean values, therefore bigger dispersion. Dispersion shows us how well the data is spread across the hash table that's why it's important to calculate it.  
 
 # Part 2. Optimizations
 
-Before we start optimizing I should say that all of the tests were run with -O2 optimization flag, we're not interested in optimizing -O0 code because that's not what people use in reality. 100 samples were used for each test. FNV hash as the hash function. The size of the hash table is 8192, why I've chosen this number you will find out in the [modulo operation](#modulo-operator-inline-assembly) part.
+Before we start optimizing I should say that all of the tests were run with -O2 optimization flag, we're not interested in optimizing -O0 code because that's not what people use in reality. 100 samples were used for each test. CRC32 hash as the hash function. The size of the hash table is 8192, why I've chosen this number you will find out in the [modulo operation](#modulo-operator-inline-assembly) part.
 
 Baseline:
 
@@ -302,7 +311,7 @@ Check [GCC Extended ASM](https://gcc.gnu.org/onlinedocs/gcc/Extended-Asm.html) f
 
 Let's test 3 different hash table sizes: 7, 3, 1 and see are my assumptions correct or not. 10 samples for the testing.
 
-| test N \ mean value     | $ 7$               | $ 3 $              | $ 1 $              |
+| test N \ mean value     | $ 7$           | $ 3 $          | $ 1 $          |
 |-------------------------|----------------|----------------|----------------|
 | 1                       | 2046044207     | 1830352015     | 1714217208     |
 | 2                       | 2035278417     | 1740152805     | 1685137627     |

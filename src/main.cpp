@@ -10,7 +10,21 @@ int main(void)
 {
     HashTable ht = {};
 
-    benchmarkHashFunctions(&ht);
+    // benchmarkHashFunctions(&ht);
+    Text text = {};
+    CreateText(&text, "txt/result.txt");
+
+    size_t bucketsQuantity = 5009;
+
+    CreateHashTable(&ht, bucketsQuantity, CRC32Hash);
+    fillHashTable(&ht, &text);
+    fillHashData(&ht, "hashres.txt", "CRC32 Hash");
+    
+    DestroyHashTable(&ht);
+
+    DestroyText(&text);
+
+    calculateLoadFactor(5009, CRC32Hash, "txt/result.txt");
 
     return OK;
 }

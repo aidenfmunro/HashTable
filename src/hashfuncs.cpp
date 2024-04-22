@@ -105,3 +105,17 @@ uint64_t FNVHash (const void* seed, size_t seedLength)
 
     return hash;
 }
+
+uint64_t CRC32Hash (const void* seed, size_t seedLength)
+{
+    uint64_t hash = 0xDEADDEAD;
+
+    const char* key = (const char*) seed;
+
+    for (size_t i = 0; i < seedLength; i++) 
+    {
+        hash = _mm_crc32_u8(hash, key[i]);
+	}
+
+	return hash;
+}

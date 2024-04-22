@@ -143,7 +143,7 @@ double calculateLoadFactor (size_t bucketsQuantity, hashFunction_t hashFunction,
         }
     }
 
-    // printf("variance: %lg\n", varianceFactor / bucketsQuantity);
+    printf("variance: %lg\n", varianceFactor / bucketsQuantity);
 
     DestroyText(&text);
     DestroyHashTable(&ht);
