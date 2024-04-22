@@ -104,13 +104,29 @@ uint64_t FNVHash (const void* seed, size_t seedLength)
 
 uint64_t CRC32Hash (const void* seed, size_t seedLength)
 {
-    uint64_t hash = 0xFFFFFFFFu;
+    uint64_t hash = 0xDEADDEAD;
 
     const char* key = (const char*) seed;
 
     for (size_t i = 0; i < seedLength; i++) 
     {
         hash = _mm_crc32_u8(hash, key[i]);
+	}
+
+	return hash;
+}
+
+const size_t ALIGNED_BYTES = 32;
+
+uint64_t CRC32Hash_64 (const void* seed, size_t seedLength)
+{
+    uint64_t hash = 0xDEADDEAD;
+
+    const char* key = (const char*) seed;
+
+    for (size_t i = 0; i < ALIGNED_BYTES; i += 8) 
+    {
+        hash = _mm_crc32_u64(hash, key[i]);
 	}
 
 	return hash;

@@ -43,7 +43,11 @@ const int AVX_ALIGN_BYTES = 32;
 
 char* parseAlignedBuffer(Text* text)
 {
-    SafeCalloc(alignedBuffer, char, text->numLines * AVX_ALIGN_BYTES, NULL);
+    // SafeCalloc(alignedBuffer, char, text->numLines * AVX_ALIGN_BYTES, NULL);
+
+    char* alignedBuffer = (char *)aligned_alloc(AVX_ALIGN_BYTES, text->numLines * AVX_ALIGN_BYTES);
+
+    memset(alignedBuffer, '\0', text->numLines * AVX_ALIGN_BYTES);
 
     for (int wordIndex = 0; wordIndex < text->numLines; wordIndex++)
     {

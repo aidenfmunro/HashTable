@@ -18,9 +18,9 @@ int main(void)
     size_t avg = 0;
     size_t time = 0;
 
-    for (size_t testCount = 1; testCount <= 1; testCount++)
+    for (size_t testCount = 1; testCount <= 5; testCount++)
     {
-        time = testHashTable(8192, CRC32Hash, &text, 1);
+        time = testHashTable(8192, CRC32Hash, &text, 50);
 
         printf("test_%llu: %llu\n", testCount, time);
 
@@ -57,7 +57,6 @@ size_t benchmarkHashTable (HashTable* ht, Text* text)
     size_t start = __rdtsc();
 
     fillHashTable(ht, text);
-    fillHashData(ht, "hashres.txt", "CRC32 Hash");
 
     size_t end   = __rdtsc();
 

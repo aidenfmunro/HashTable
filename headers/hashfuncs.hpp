@@ -24,4 +24,6 @@ uint64_t FNVHash             (const void* seed, size_t seedLength);
 
 uint64_t CRC32Hash           (const void* seed, size_t seedLength);
 
+uint64_t CRC32Hash_64        (const void* seed, size_t seedLength);
+
 #endif
