@@ -15,25 +15,20 @@ int main(void)
     Text text = {};
     CreateText(&text, "txt/result.txt");
 
-    for (size_t testCount = 1; testCount <= 5; testCount++)
+    size_t avg = 0;
+    size_t time = 0;
+
+    for (size_t testCount = 1; testCount <= 1; testCount++)
     {
-        printf("test_%llu: %llu\n", testCount, testHashTable(29258 / 7, FNVHash, &text, 10));
+        time = testHashTable(8192, CRC32Hash, &text, 1);
+
+        printf("test_%llu: %llu\n", testCount, time);
+
+        avg += time;
     }
 
-    puts("\n");
-
-    for (size_t testCount = 1; testCount <= 5; testCount++)
-    {
-        printf("test_%llu: %llu\n", testCount, testHashTable(29258 / 3, FNVHash, &text, 10));
-    }
-
-    puts("\n");
-
-    for (size_t testCount = 1; testCount <= 5; testCount++)
-    {
-        printf("test_%llu: %llu\n", testCount, testHashTable(29258, FNVHash, &text, 10));
-    }
-    
+    printf("avg: %llu\n", avg / 5);
+   
     DestroyText(&text);
 
     return OK;
@@ -62,6 +57,7 @@ size_t benchmarkHashTable (HashTable* ht, Text* text)
     size_t start = __rdtsc();
 
     fillHashTable(ht, text);
+    fillHashData(ht, "hashres.txt", "CRC32 Hash");
 
     size_t end   = __rdtsc();
 

@@ -22,5 +22,6 @@ uint64_t rotateLeftHash      (const void* seed, size_t seedLength);
 
 uint64_t FNVHash             (const void* seed, size_t seedLength);
 
+uint64_t CRC32Hash           (const void* seed, size_t seedLength);
 
 #endif
