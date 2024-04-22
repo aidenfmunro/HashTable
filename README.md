@@ -35,7 +35,7 @@ The goals of this project are to:
 
 ## Initial data
 
-For benchmarks i used Shakespeares text that contains `29258` unique words, a hash table of size `5009` which is a prime number, it should be a prime in order to minimize the number of collisions and to better distribute the keys across the hash table. The mean value (load factor) is `5.8`.
+For benchmarks i used Shakespeares text that contains $ 30000 $ unique words, a hash table of size $ 5009 $  which is a prime number, it should be a prime in order to minimize the number of collisions and to better distribute the keys across the hash table. The mean value (load factor) is $ 5.8 $.
 
 I'm assuming that if the mean value is low, then it won't be cache-friendly which is one of the reasons, the main question is finding a hash function that won't create any collisions. If the mean value is high, then the amount of collision will be high meaning that finding elements will be slower. **This will be researched later on**. 
  
@@ -58,7 +58,7 @@ Let's firstly mark down all of the hash functions:
 
 This hash always returns 0, so it's obvious that all of the elements will be stored in 1st cell.
 
-![](histograms/Zero%20hash%20(log)-imageonline.co-merged.png)
+![](histograms/Zero%20hash%20(log)%20.png)
 
 It's not so great, because the time to get the last element depends on the amount of values we insert, which is not what we are looking for. 
 
@@ -192,22 +192,22 @@ Comparison table:
 | 9  | `CRC32`                       | 5009 | 5.8   | 9.81      |
 | 10 | `FNV`                         | 5009 | 5.8   | 9.76      | 
 
-**Conclusion:** from the statistics above I can say that the FNV hash has the best dispersion. Also as you can see in row 3 we can see that low sized hash tables have bigger mean values, therefore bigger dispersion. Dispersion shows us how well the data is spread across the hash table that's why it's important to calculate it.  
+**Conclusion:** from the statistics above I can say that the FNV hash is most suitable. Also as you can see in row 3 we can see that low sized hash tables have bigger mean values, therefore bigger dispersion. Dispersion shows us how well the data is spread across the hash table that's why it's important to calculate it.  
 
 # Part 2. Optimizations
 
-Before we start optimizing I should say that all of the tests were run with -O2 optimization flag, we're not interested in optimizing -O0 code because that's not what people use in reality. 100 samples were used for each test. CRC32 hash as the hash function. The size of the hash table is 8192, why I've chosen this number you will find out in the [modulo operation](#modulo-operator-inline-assembly) part.
+Before we start optimizing I should say that all of the tests were run with -O2 optimization flag, we're not interested in optimizing -O0 code because that's not what people use in reality. 100 samples were used for each test. FNV hash as the hash function. The size of the hash table is 8192, why I've chosen this number you will find out in the [modulo operation](#modulo-operator-inline-assembly) part.
 
 Baseline:
 
 | test N      | ticks       |
 |-------------|-------------|
-| 1           | 9331985696  |
-| 2           | 9842519103  |
-| 3           | 12264270138 |
-| 4           | 9766615584  |
-| 5           | 9773937232  |
-| **average** | **10195865550** | 
+| 1           | 9.3  |
+| 2           | 9.8  |
+| 3           | 12.2 |
+| 4           | 9.7  |
+| 5           | 9.7  |
+| **average** | **10.2 $ \pm $ 1.0** | 
 
 ## Strcmp function. Intrinsics
 
@@ -235,15 +235,15 @@ int mystrcmp (const char* s1, const char* s2)
 
 | test N      | ticks          |
 |-------------|----------------|
-| 1           | 7733705232     |
-| 2           | 7613690128     |
-| 3           | 7641475190     |
-| 4           | 7653800736     |
-| 5           | 7718224865     |
-| **average** | **7672179230** |
+| 1           | 7.7     |
+| 2           | 7.6     |
+| 3           | 7.6     |
+| 4           | 7.6     |
+| 5           | 7.7     |
+| **average** | **7.6 $\pm$ 0.5** |
 
 
-### $ 1.32 $ boost compared to baseline.
+### $ 1.32 $ ($ 32 \% $ better) boost compared to baseline.
  
 ## Modulo operator. Inline assembly
 
@@ -296,33 +296,50 @@ Check [GCC Extended ASM](https://gcc.gnu.org/onlinedocs/gcc/Extended-Asm.html) f
 
 **Results:**
 
-| test N      | ticks          |
+| test N      | ticks $ \cdot 10^9$          |
 |-------------|----------------|
-| 1           | 7401715904     |
-| 2           | 7453692295     |
-| 3           | 7604998528     |
-| 4           | 7339700992     |
-| 5           | 7605932293     |
-| **average** | **7481208002** |
+| 1           | 7.4     |
+| 2           | 7.4     |
+| 3           | 7.6     |
+| 4           | 7.3     |
+| 5           | 7.6     |
+| **average** | **7.5 $ \pm $ 1.0** |
 
-### $ 1.02 $ boost compared to previous optimization.
+### $ 1.02 $ ($ 2 \%$ better) boost compared to previous optimization.
 
-## Hash table size difference.
+## Seperate assembly file. Multiplication to addition and shifts.
 
-Let's test 3 different hash table sizes: 7, 3, 1 and see are my assumptions correct or not. 10 samples for the testing.
+I've decided to replace the multiplication with addition and shift operations.
 
-| test N \ mean value     | $ 7$           | $ 3 $          | $ 1 $          |
-|-------------------------|----------------|----------------|----------------|
-| 1                       | 2046044207     | 1830352015     | 1714217208     |
-| 2                       | 2035278417     | 1740152805     | 1685137627     |
-| 3                       | 2023618063     | 1710279008     | 1729840800     |
-| 4                       | 2049133585     | 1712255956     | 1742023345     |
-| 5                       | 2014128224     | 1771352059     | 1808735936     |
-| average                 | 2033640499     | 1752878368     | 1735990983     |
-| **boost**               | **1.00**       | **1.16**       | **1.01**       |
+This:
 
+```
+hash *= FNVprime;
+```
+Has now become this:
 
+```
+hval += (hash << 1) + (hash << 4) + (hash << 5) +
+     (hash << 7) + (hash << 8) + (hash << 40);
+```
+But written in assembly.
 
+**Results:**
+
+| test N      | ticks $ \cdot 10^9 $          |
+|-------------|----------------|
+| 1           | 7.8     |
+| 2           | 7.4     |
+| 3           | 7.6     |
+| 4           | 7.4     |
+| 5           | 7.5     |
+| **average**     | **7.5 $\pm$ 1.2**      |
+
+### $ 0.99 $ boost compared to previous optimization.
+
+My thoughts are that the sum time of the new operations overlap 1 mul operation. **I need to research that.**
+
+### Total result: $ 34 \%$ optimization.
 
 
 
