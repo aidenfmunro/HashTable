@@ -298,6 +298,22 @@ Check [GCC Extended ASM](https://gcc.gnu.org/onlinedocs/gcc/Extended-Asm.html) f
 
 ### $ 1.02 $ boost compared to previous optimization.
 
+## Hash table size difference.
+
+Let's test 3 different hash table sizes: 7, 3, 1 and see are my assumptions correct or not. 10 samples for the testing.
+
+| test N \ mean value     | $ 7$               | $ 3 $              | $ 1 $              |
+|-------------------------|----------------|----------------|----------------|
+| 1                       | 2046044207     | 1830352015     | 1714217208     |
+| 2                       | 2035278417     | 1740152805     | 1685137627     |
+| 3                       | 2023618063     | 1710279008     | 1729840800     |
+| 4                       | 2049133585     | 1712255956     | 1742023345     |
+| 5                       | 2014128224     | 1771352059     | 1808735936     |
+| average                 | 2033640499     | 1752878368     | 1735990983     |
+| **boost**               | **1.00**       | **1.16**       | **1.01**       |
+
+
+
 
 
 
