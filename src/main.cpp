@@ -17,9 +17,23 @@ int main(void)
 
     for (size_t testCount = 1; testCount <= 5; testCount++)
     {
-        printf("test_%llu: %llu\n", testCount, testHashTable(8192, FNVHash, &text, 100));
+        printf("test_%llu: %llu\n", testCount, testHashTable(29258 / 7, FNVHash, &text, 10));
     }
 
+    puts("\n");
+
+    for (size_t testCount = 1; testCount <= 5; testCount++)
+    {
+        printf("test_%llu: %llu\n", testCount, testHashTable(29258 / 3, FNVHash, &text, 10));
+    }
+
+    puts("\n");
+
+    for (size_t testCount = 1; testCount <= 5; testCount++)
+    {
+        printf("test_%llu: %llu\n", testCount, testHashTable(29258, FNVHash, &text, 10));
+    }
+    
     DestroyText(&text);
 
     return OK;
