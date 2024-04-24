@@ -20,14 +20,14 @@ int main(void)
 
     for (size_t testCount = 1; testCount <= 5; testCount++)
     {
-        time = testHashTable(8192, CRC32Hash, &text, 50);
+        time = testHashTable(16384, CRC32Hash_64, &text, 50);
 
         printf("test_%llu: %llu\n", testCount, time);
 
         avg += time;
     }
 
-    printf("avg: %llu\n", avg / 5);
+    printf("avg: %llu\n", avg / 5);   
    
     DestroyText(&text);
 

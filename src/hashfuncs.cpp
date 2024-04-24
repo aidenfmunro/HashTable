@@ -126,7 +126,7 @@ uint64_t CRC32Hash_64 (const void* seed, size_t seedLength)
 
     for (size_t i = 0; i < ALIGNED_BYTES; i += 8) 
     {
-        hash = _mm_crc32_u64(hash, key[i]);
+        hash = _mm_crc32_u64(hash, *(unsigned long long*)(key + i));
 	}
 
 	return hash;
