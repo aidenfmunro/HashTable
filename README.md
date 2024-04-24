@@ -1,16 +1,5 @@
 # Hash Table investigation
 
-## System specs
-
-**CPU:** AMD Ryzen 7 5800HS with Radeon Graphics, 3201 Mhz, 8 Core(s), 16 Logical Processor(s)
-
-**RAM:** 16.0 GB
-
-**OS:** Ubuntu 22.04 (WSL)
-
-**Compiler:** g++ 11.4.0
-
-
 ## Introduction
 
 This project is dedicated to investigating the Hash Table data structure.
@@ -179,18 +168,18 @@ Best result so far!
 
 Comparison table:
 
-| N  | Hash | Table size | Mean value | Dispersion |
+| $ \bold{N} $  | Hash | Table size | Mean value | Dispersion |
 |:--:|:------------------------------|:----:|:-----:|:---------:|
-| 1  | `Zero`                        | 5009 | 5.8   | 171000    |
-| 2  | `Word length`                 | 5009 | 5.8   | 20000     |
-| 3  | `ASCII sum`                   | 101  | 289.7 | 19900     |
-| 4  | `ASCII sum divided by length` | 5009 | 5.8   | 19400     |
-| 5  | `First letter`                | 5009 | 5.8   | 9800      |
-| 6  | `ASCII sum`                   | 5009 | 5.8   | 290       |
-| 7  | `ROR`                         | 5009 | 5.8   | 27        |
-| 8  | `ROL`                         | 5009 | 5.8   | 13.7      |
-| 9  | `CRC32`                       | 5009 | 5.8   | 9.81      |
-| 10 | `FNV`                         | 5009 | 5.8   | 9.76      | 
+| **1**  | $Zero$                                    | $ 5009 $ | $ 5.8   $ | $ 171000 $   |
+| **2**  | $Word \; length$                          | $ 5009 $ | $ 5.8   $ | $ 20000  $   |
+| **3**  | $ASCII \; sum$                            | $ 101  $ | $ 289.7 $ | $ 19900  $   |
+| **4**  | $ASCII \; sum \; divided \; by \; length$ | $ 5009 $ | $ 5.8   $ | $ 19400  $   |
+| **5**  | $First \; letter$                         | $ 5009 $ | $ 5.8   $ | $ 9800   $   |
+| **6**  | $ASCII \; sum$                            | $ 5009 $ | $ 5.8   $ | $ 290    $   |
+| **7**  | $ROR$                                     | $ 5009 $ | $ 5.8   $ | $ 27     $   |
+| **8**  | $ROL$                                     | $ 5009 $ | $ 5.8   $ | $ 13.7   $   |
+| **9**  | $CRC32$                                   | $ 5009 $ | $ 5.8   $ | $ 9.81   $   |
+| **10** | $FNV$                                     | $ 5009 $ | $ 5.8   $ | $ 9.76   $   | 
 
 **Conclusion:** from the statistics above I can say that the FNV hash is most suitable. Also as you can see in row 3 we can see that low sized hash tables have bigger mean values, therefore bigger dispersion. Dispersion shows us how well the data is spread across the hash table that's why it's important to calculate it.  
 
@@ -202,12 +191,12 @@ Baseline:
 
 | test N      | ticks       |
 |-------------|-------------|
-| 1           | 9.3  |
-| 2           | 9.8  |
-| 3           | 12.2 |
-| 4           | 9.7  |
-| 5           | 9.7  |
-| **average** | **10.2 $ \pm $ 1.0** | 
+| **1**           | $ 9.3  $ |
+| **2**           | $ 9.8  $ |
+| **3**           | $ 12.2 $ |
+| **4**           | $ 9.7  $ |
+| **5**           | $ 9.7  $ |
+| $ average $ | $ 10.2 \pm  1.0 $ | 
 
 ## Strcmp function. Intrinsics
 
@@ -233,14 +222,14 @@ int mystrcmp (const char* s1, const char* s2)
 
 **Results:**
 
-| test N      | ticks          |
+| test $\bold{N}$      | ticks          |
 |-------------|----------------|
-| 1           | 7.7     |
-| 2           | 7.6     |
-| 3           | 7.6     |
-| 4           | 7.6     |
-| 5           | 7.7     |
-| **average** | **7.6 $\pm$ 0.5** |
+| **1**           | $ 7.7 $     |
+| **2**           | $ 7.6 $     |
+| **3**           | $ 7.6 $     |
+| **4**           | $ 7.6 $     |
+| **5**           | $ 7.7 $     |
+| $ average $ | $7.6 \pm 0.5 $ |
 
 
 ### $ 1.32 $ ($ 32 \% $ better) boost compared to baseline.
@@ -279,6 +268,8 @@ x mod 2^n <=> x & (2^n - 1)
 
 Let's rewrite the code using inline assembly:
 
+<details>
+  <summary>Assembly code</summary>
 ```
 asm volatile 
         (
@@ -289,6 +280,7 @@ asm volatile
          : "rm" (htSize - 1)
         );
 ```
+</details>
 
 Using the volatile qualifier we disable compiler optimizations because we have already optimized this part and don't need changes.
 
@@ -296,14 +288,14 @@ Check [GCC Extended ASM](https://gcc.gnu.org/onlinedocs/gcc/Extended-Asm.html) f
 
 **Results:**
 
-| test N      | ticks $ \cdot 10^9$          |
+| test $\bold{N}$      | ticks $ \cdot 10^9$          |
 |-------------|----------------|
-| 1           | 7.4     |
-| 2           | 7.4     |
-| 3           | 7.6     |
-| 4           | 7.3     |
-| 5           | 7.6     |
-| **average** | **7.5 $ \pm $ 1.0** |
+| **1**           | $ 7.4 $     |
+| **2**           | $ 7.4 $     |
+| **3**           | $ 7.6 $     |
+| **4**           | $ 7.3 $     |
+| **5**           | $ 7.6 $     |
+| $average$ | $7.5  \pm  1.0$ |
 
 ### $ 1.02 $ ($ 2 \%$ better) boost compared to previous optimization.
 
@@ -322,26 +314,153 @@ Has now become this:
 hval += (hash << 1) + (hash << 4) + (hash << 5) +
      (hash << 7) + (hash << 8) + (hash << 40);
 ```
-But written in assembly.
+But written in assembly:
+
+<details>
+  <summary>Assembly code</summary>
+
+```
+FNVHash_asm:
+        movsx   rax, BYTE [rdi]
+        test    rsi, rsi
+        je      .end
+        add     rsi, rdi
+.loop:
+        mov     rdx, rax
+        lea     r8, [rax + rax * 8]
+        mov     rcx, rax
+        add     rdi, 1
+        sal     rdx, 7
+        sal     rcx, 24
+        lea     rdx, [rdx + r8 * 2]
+        add     rdx, rax
+        sal     rax, 8
+        add     rdx, rax
+        movsx   rax, BYTE [rdi - 1]
+        add     rcx, rdx
+        xor     rax, rcx
+        cmp     rsi, rdi
+
+        jne     .loop
+.end:
+        ret
+```
+</details>
+
 
 **Results:**
 
-| test N      | ticks $ \cdot 10^9 $          |
+| test $\bold{N}$      | ticks $ \cdot 10^9 $          |
 |-------------|----------------|
-| 1           | 7.8     |
-| 2           | 7.4     |
-| 3           | 7.6     |
-| 4           | 7.4     |
-| 5           | 7.5     |
-| **average**     | **7.5 $\pm$ 1.2**      |
+| **1**           | $ 7.8 $     |
+| **2**           | $ 7.4 $     |
+| **3**           | $ 7.6 $     |
+| **4**           | $ 7.4 $     |
+| **5**           | $ 7.5 $     |
+| $ average $     | $ 7.5 \pm 1.2 $ |
 
 ### $ 0.99 $ boost compared to previous optimization.
 
 My thoughts are that the sum time of the new operations overlap 1 mul operation. **I need to research that.**
 
-### Total result: $ 34 \%$ optimization.
+### **Total result:** $ 34 \%$ optimization using FNV hash.
+
+I hit a dead end optimizing the fnv hash function, so i decided to switch to crc32.
+
+## CRC32
+
+This is how i've implemented the CRC32 hash function in C:
+
+```
+uint64_t CRC32Hash (const void* seed, size_t seedLength)
+{
+    uint64_t hash = 0xDEADDEAD;
+
+    const char* key = (const char*) seed;
+
+    for (size_t i = 0; i < seedLength; i++) 
+    {
+        hash = _mm_crc32_u8(hash, key[i]);
+	}
+
+	return hash;
+}
+```
+
+I've applied all of the current optimizations to crc32 and added 2 more that I will describe right now.
+
+### Intrinsic
+
+The crc32 instruction is capable of processing 1, 2, 4, or even 8 bytes at a time. Of course we're going to process 8 bytes by using `_mm_crc32_u64` intrinsic. 
+
+But first we need to align the memory, because when we do an unaligned address access multiple cache lines are read, therefore reducing the perfromance.
+
+The code:
+
+```
+const size_t ALIGNED_BYTES = 32;
+
+uint64_t CRC32Hash_64 (const void* seed, size_t seedLength)
+{
+    uint64_t hash = 0xDEADDEAD;
+
+    const char* key = (const char*) seed;
+
+    for (size_t i = 0; i < ALIGNED_BYTES; i += 8) 
+    {
+        hash = _mm_crc32_u64(hash, *(unsigned long long*)(key + i));
+	}
+
+	return hash;
+}
+```
+
+### Size increasement.
+
+This is an unfair optimization, because it is not "hardware", rather "software".
+
+Because we still need a $ 2^n $ table size for the modulo optimization to work, I've just doubled the current size to $ 16384 $.
+
+Let's dive in and see the results:
+
+| test $\bold{N}$  | Baseline, $ 10^9 $ ticks | Strcmp, $ 10^9 $ ticks | Modulo, $ 10^9 $ ticks | Vectorization, $ 10^9 $ ticks | Size, $ 10^9 $ ticks |   |   |
+|---------|--------------------------|------------------------|----------------------------------|-------------------------------|-----------------------------|---|---|
+| **1**       | $ 9.6 $                      | $ 8.2 $                    | $ 7.9 $                              |$ 6.4 $                           | $ 6.0 $                         |   |   |
+| **2**       | $ 9.7 $                      | $ 8.2 $                    | $ 7.6 $                              |$ 6.3 $                           | $ 5.7 $                         |   |   |
+| **3**       | $ 10.3 $                     | $ 7.9 $                    | $ 7.5 $                              |$ 6.4 $                           | $ 5.6 $                         |   |   |
+| **4**       | $ 10.0 $                     | $ 7.9 $                    | $ 7.5 $                              |$ 6.4 $                           | $ 5.7 $                         |   |   |
+| **5**       | $ 10.6 $                     | $ 7.9 $                    | $ 7.6 $                              |$ 6.5 $                           | $ 5.8 $                         |   |   |
+| $ \bold{average} $ | $ 10.0 \pm 0.7$                     | $ 8.0 \pm 0.1 $                    | $ 7.6 \pm 0.1 $                              |$ 6.4 \pm 0.1$                           | $ 5.8 \pm 0.1 $                         |   |   |
+| $\bold{boost} $   |$ \bold{1.00x}$                    | $\bold{1.25x}$                  | $\bold{1.31x}$                            | $\bold{1.56x}$                         | $\bold{1.72x}$                       |
+
+### **Total result:** $72 \%$ boost using CRC32 hash.
+
+## Coclusion
+
+The total boost is $ 72 \% $, fighting against `-O2` compiler.
+
+But what are the costs?
+
+1. words should be less than 32 letters long.
+
+2. $2^n$ hash table size.
+
+3. x86 dependant code.
+
+4. avx2 required.
+
+Overall, **non-portable**, **hard to support / read**, but $fast$ code. 
 
 
+## System specs
+
+**CPU:** AMD Ryzen 7 5800HS with Radeon Graphics, 3201 Mhz, 8 Core(s), 16 Logical Processor(s)
+
+**RAM:** 16.0 GB
+
+**OS:** Ubuntu 22.04 (WSL)
+
+**Compiler:** g++ 11.4.0
 
 
 
