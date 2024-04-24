@@ -439,7 +439,7 @@ Let's dive in and see the results:
 
 ### **Total result:** $72 \%$ boost using CRC32 hash.
 
-## Coclusion
+## Conclusion
 
 The total boost is $ 72 \% $, fighting against `-O2` compiler.
 
