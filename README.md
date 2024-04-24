@@ -269,7 +269,8 @@ x mod 2^n <=> x & (2^n - 1)
 Let's rewrite the code using inline assembly:
 
 <details>
-  <summary>Assembly code</summary>
+  <summary>Inline assembly code</summary>
+
 ```
 asm volatile 
         (
@@ -396,6 +397,8 @@ The crc32 instruction is capable of processing 1, 2, 4, or even 8 bytes at a tim
 But first we need to align the memory, because when we do an unaligned address access multiple cache lines are read, therefore reducing the perfromance.
 
 The code:
+<details>
+  <summary>CRC32_64 code</summary>
 
 ```
 const size_t ALIGNED_BYTES = 32;
@@ -414,6 +417,7 @@ uint64_t CRC32Hash_64 (const void* seed, size_t seedLength)
 	return hash;
 }
 ```
+</details>
 
 ### Size increasement.
 
