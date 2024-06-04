@@ -10,7 +10,7 @@ By utilizing a hashtable, we can quickly track and retrieve how many times a scp
 
 ## Objectives
 
-The goals of this project are to:
+The objectives of this project are to:
 
 0. implement a simple Hash Table using cache-friendly doubly linked list for handling collisions. 
 
